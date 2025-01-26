@@ -1,9 +1,15 @@
 import './App.css'
+import AboutPage from './pages/AboutPage';
+import HomePage from './pages/HomePage' ;
+import MedicinePage from './pages/MedicinePage';
 
 function App() {
 
   return ( <div>
-    يمراري
+  <div  >a</div>
+  <div >ab</div>
+  <div >abc</div>
+<MedicinePage />
     </div>
   )
 }
