@@ -4,7 +4,6 @@ import NavBar from "../components/NavBar/NavBar"
 function AboutPage() {
     return (
         <div>
-        <NavBar/>
         <h1>
 
             about

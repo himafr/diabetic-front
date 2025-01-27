@@ -1,0 +1,32 @@
+.group{
+    position: relative;
+}
+
+.group_input {
+    font:inherit;
+    padding:10px;
+    border:none;
+    border-radius:4px;
+    outline:2px solid #fff ;
+    background-color:transparent;
+    transition:outline-color 500ms;
+    }
+
+.group_label{
+        position:absolute;
+        top: 0;
+        left:0;
+        transform: translate(10px ,50%  );
+        transition: 800ms;
+    }
+    .group_input:focus +
+    .group_label,
+    .group_input:valid +
+    .group_label{
+        padding-inline: 5px;
+        transform:  translate( 10px ,calc(-50% - 10px));
+        transition: 800ms;
+        /* transition:translate 500ms , scale 500ms; */
+scale: 0.8;
+}
+ 
