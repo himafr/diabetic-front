@@ -2,8 +2,10 @@ import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import "../node_modules/animate.css/animate.min.css";
 // Import our custom CSS
-import "./index.css";
 import "./normalize.css";
+import "./index.css";
+import "./loader.css";
+import "./main.css";
 //import jsx files
 import App from "./App.jsx";
 // define base url for API requests

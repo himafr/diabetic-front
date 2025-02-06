@@ -1,4 +1,4 @@
-import NavBar from "../components/NavBar/NavBar"
+import NavBar from "../components/NavBar"
 
 // import styles from './AboutPage.module.css'
 function AboutPage() {

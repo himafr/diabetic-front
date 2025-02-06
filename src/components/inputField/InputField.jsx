@@ -1,6 +1,6 @@
 import styles from "./InputField.module.css";
 
-export default function InputField({ placeholder = "", bgColor = "#fff",outColor="#3c50eb",textColor="#000" ,inHeight="20px",type ,width,setValue,value}) {
+export default function InputField({ placeholder = "", bgColor = "#fff",outColor="#6b9997",textColor="#000" ,inHeight="20px",type ,width,setValue,value}) {
     return (
     <div className={styles.group} style={{color:textColor,width}} >
       <input 
@@ -19,7 +19,7 @@ export default function InputField({ placeholder = "", bgColor = "#fff",outColor
         className={styles.group_label}
         style={{ backgroundColor: bgColor,height:inHeight ,color:textColor}}
       >
-        {placeholder}
+        {placeholder.split("optional")[0]}
       </label>
     </div>
   );
