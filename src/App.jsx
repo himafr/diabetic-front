@@ -3,8 +3,8 @@ import {
   Navigate,
   Route,
   Routes,
-  useNavigate,
 } from "react-router-dom";
+
 import AboutPage from "./pages/AboutPage";
 import HomePage from "./pages/HomePage";
 import MedicinePage from "./pages/MedicinePage";
@@ -23,7 +23,6 @@ import RecipesPage from "./pages/RecipesPage";
 import RecipePage from "./pages/RecipePage";
 import BooksPage from "./pages/BooksPage";
 import BookPage from "./pages/BookPage";
-
 function App() {
 
   return (
