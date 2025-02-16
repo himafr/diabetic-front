@@ -2,12 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/inputField/InputField.handle";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { EyeIcon } from "@heroicons/react/16/solid";
 
 function SignUpPage() {
   const navigate = useNavigate();
-
+const [showPassword,setShowPassword] = useState(false)
   const { register, logged, isAuthenticated, isLoading } = useAuth();
   const [loading, setLoading] = useState(isLoading);
+
+  const [isValid,setIsValid] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -18,6 +21,7 @@ function SignUpPage() {
     email: "",
   });
   const handleChange = (e) => {
+    if(e.target.name==="password")setIsValid( validate.password(e.target.value));
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
   useEffect(
@@ -42,8 +46,27 @@ function SignUpPage() {
     },
     [isAuthenticated, logged, navigate]
   );
+  const validate = {
+    /**
+     * @description
+     * takes the user's plaintext password
+     * and checks whether the password contains:
+     * 1. at least 5 characters
+     * 2. at least 1 upper case letter
+     * 3. at least 1 lower case letter
+     * 4. at least 1 number or special character
+     * @param {string} str the plaintext password of the user
+     * @returns {boolean} either true or false based on the check
+     */
+    password: (str) => {
+      const regex = /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+  
+      return str.length >= 5 && regex.test(str);
+    },
+  };
   function handleSignup(e) {
     e.preventDefault();
+    if(!isValid)return;
     setLoading(true);
     const {
       username,
@@ -64,13 +87,11 @@ function SignUpPage() {
         ...(email != "" && { email: email }),
         ...(number != "" && { number: number }),
       };
-
-      console.log(dataToBeSent);
       register(dataToBeSent);
     }
   }
   return (
-    <div style={{ backgroundColor: "#e2ddd9", height: "100dvh" }}>
+    <div style={{ backgroundColor: "#e2ddd9", height: "100dvh" ,direction:"ltr"}}>
       <form onSubmit={handleSignup}>
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
@@ -85,15 +106,22 @@ function SignUpPage() {
                   required={true}
                   handleValue={handleChange}
                 />
+                  <div className="flex relative">
                 <InputField
-                  type={"password"}
+                 type={showPassword?"text":"password"} 
                   placeholder="password"
                   width={"100%"}
                   name="password"
+                  outColor={!isValid?"red":"#6b9997"}
                   required={true}
                   handleValue={handleChange}
                 />
+                      <EyeIcon onClick={()=>setShowPassword(val=>!val)} width={24} className="absolute right-4 top-2"/>
+                      </div>
               </div>
+              {!isValid&&
+                <p style={{color:"red",paddingTop:"8px",fontSize:"11px"}}>Password should be at least 5 characters long and contain at least one uppercase letter, one lowercase letter, and one number or special character.</p>
+                }
               <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <br />

@@ -11,7 +11,7 @@ import MedicinePage from "./pages/MedicinePage";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
-import WelcomePage from "./pages/WelcomePage";
+import WelcomePage from "./pages/welcomePage/WelcomePage";
 import AppLayout from "./pages/AppLayout";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectRoute from "./pages/ProtectRoute";
@@ -25,6 +25,7 @@ import BooksPage from "./pages/BooksPage";
 import BookPage from "./pages/BookPage";
 
 function App() {
+
   return (
     <AuthProvider>
       <BrowserRouter>

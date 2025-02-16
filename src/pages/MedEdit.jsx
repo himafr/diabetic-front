@@ -25,7 +25,7 @@ function MedEdit() {
     deleteMed,
     updateMed,
   } = useMeds();
-  const { med_name, med_price, med_summary, med_photo } = medData;
+  const { med_name, med_price, med_summary, med_photo ,med_cat} = medData;
   async function handleUpdate(e) {
     try {
       await updateMed(e, id);
@@ -90,6 +90,15 @@ function MedEdit() {
               width={"100%"}
               value={med_summary}
             />
+            <InputFieldHandle
+              type={"text"}
+              placeholder="medicine category"
+              name="med_cat"
+              required={true}
+              handleValue={handleChange}
+              width={"100%"}
+              value={med_cat}
+            />
             {isLoading && <p className="loader"></p>}
             {error && <p>{error}</p>}
           </form>
@@ -123,6 +132,7 @@ function MedEdit() {
             summary={med_summary && med_summary}
             name={med_name && med_name}
             price={med_price && med_price}
+            category={med_cat&& med_cat}
           />
         </div>
       </div>

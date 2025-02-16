@@ -13,6 +13,7 @@ export default function useMeds() {
     med_price: "",
     med_summary: "",
     med_photo: null,
+    med_cat:"",
   });
   const handleChange = (e) => {
     setMedData({ ...medData, [e.target.name]: e.target.value });
@@ -86,6 +87,7 @@ export default function useMeds() {
     formData.append("med_price", medData.med_price);
     formData.append("med_summary", medData.med_summary);
     formData.append("med_photo", medData.med_photo);
+    formData.append("med_cat", medData.med_cat);
     try {
       const response = await axios.post(`${baseUrl}api/v1/meds`, formData, {
         headers: {
@@ -99,6 +101,7 @@ export default function useMeds() {
           med_name: "",
           med_price: "",
           med_summary: "",
+          med_cat:"",
           med_photo: null,
         });
         setIsLoading(false);
@@ -136,6 +139,7 @@ export default function useMeds() {
           med_price: "",
           med_summary: "",
           med_photo: null,
+          med_cat:"",
         });
         setIsLoading(false);
       } else {

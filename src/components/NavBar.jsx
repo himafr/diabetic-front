@@ -15,17 +15,18 @@ function NavBar() {
       <nav className="w-full py-6">
         <ul className="flex flex-row ">
           <li>
-            <NavLink className={"p-6 mr-7 font-bold"} to="/app/home">
+            <NavLink className={"p-6 ml-7 font-bold"} to="/app/home">
               <HomeIcon className="myNavIcon" />
               home
             </NavLink>
           </li>
-          <li></li>
           <li>
             <NavLink className={"p-6 text-gray-300"} to="/app/medicine">
               <PillsIcon className={"myNavIcon"} /> Medicines
             </NavLink>
           </li>
+
+          {user.role !="pharmacy"?<>
 
           <li>
             <NavLink className={"p-6 text-gray-300"} to="recipes">
@@ -39,11 +40,14 @@ function NavBar() {
               Books
             </NavLink>
           </li>
+          </>
+          :null
+          }
 
-          <li className="ml-auto  ">
+          <li className="mr-auto  ">
             <ul>
               <li>
-                <Popover
+                <Popover 
                   element={
                     <div className="flex gap-4">
                       <div>
@@ -56,8 +60,9 @@ function NavBar() {
                     </div>
                   }
                 >
+                
                   <Link className={"p-8  text-gray-300"} to="profile">
-                    Profile
+                    الصفحة الشخصية
                   </Link>
                   <hr className="mt-4" />
                   <button
@@ -67,7 +72,7 @@ function NavBar() {
                     }}
                     className="pb-1 pt-4  px-8 cursor-pointer text-gray-300"
                   >
-                    Logout
+                    تسجيل الخروج
                   </button>
                 </Popover>
               </li>

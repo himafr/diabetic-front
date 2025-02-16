@@ -18,7 +18,7 @@ function MedAdd() {
     error,
     isLoading,
   } = useMeds();
-  const { med_name, med_price, med_summary } = medData;
+  const { med_name, med_price, med_summary ,med_cat} = medData;
   return (
     <div className="max-w-screen-xl mx-auto px-5  sm:p-10 md:p-16 md:py-3">
       <div className="grid grid-cols-1 sm:grid-cols-2  gap-10">
@@ -59,6 +59,14 @@ function MedAdd() {
               width={"100%"}
               value={med_summary}
             />
+            <InputFieldHandle
+              type={"text"}
+              placeholder="medicine category"
+              name="med_cat"
+              handleValue={handleChange}
+              width={"100%"}
+              value={med_cat}
+            />
             {isLoading && <p className="loader"></p>}
             {error && <p>{error}</p>}
             <WhiteButton
@@ -76,6 +84,7 @@ function MedAdd() {
             summary={med_summary && med_summary}
             name={med_name && med_name}
             price={med_price && med_price}
+            category={med_cat&& med_cat}
           />
         </div>
       </div>

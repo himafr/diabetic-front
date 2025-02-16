@@ -2,5 +2,5 @@
 @import "tailwindcss";
 
 .myNavIcon {
-  @apply w-7 relative bottom-1 inline-block pr-1;
+  @apply w-7 relative bottom-1 inline-block pl-1;
 }

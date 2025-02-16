@@ -4,15 +4,17 @@ import InputField from "../components/inputField/InputField";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Loader from "../components/Loader";
+import { EyeDropperIcon, EyeIcon } from "@heroicons/react/16/solid";
 
 function LoginPage() {
  
   const navigate= useNavigate();
   const [error,setError]=useState(null)
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("pass1234@#Ge");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const { login,logged,isAuthenticated,isLoading } = useAuth();
   const [loading,setLoading]=useState(isLoading);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(
     function(){
@@ -50,8 +52,9 @@ function LoginPage() {
     }
 
   }
+
   return (
-    <div className="max-w-screen-2xl mx-auto px-4" >
+    <div className="max-w-screen-2xl mx-auto px-4 " dir="ltr" >
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
           <h1 className="text-2xl font-bold text-gray-900 mb-4 " style={{marginTop:"0px"}}>Sign In</h1>
@@ -59,7 +62,10 @@ function LoginPage() {
           <form className="flex flex-col gap-y-2" onSubmit={handleLogin}>
             <InputField type={"text"} placeholder="username" inHeight={"43"} width={"100%"} setValue={setUsername} value={username}/>
             <br/>
-            <InputField type={"password"} placeholder="password" inHeight={"43"} width={"100%"} setValue={setPassword} value={password} />
+            <div className="flex relative">
+            <InputField type={showPassword?"text":"password"} placeholder="password" inHeight={"43"} width={"100%"} setValue={setPassword} value={password}  /> 
+            <EyeIcon onClick={()=>setShowPassword(val=>!val)} width={24} className="absolute right-4 top-2"/>
+            </div>
         
               <label
                 htmlFor="remember-me"
