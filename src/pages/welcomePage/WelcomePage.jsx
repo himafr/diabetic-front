@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../../context/AuthContext";
-import styles from './WelcomePage.module.css'
+import styles from './welcomePage.module.css'
 
 function WelcomePage() {
   const navigate = useNavigate();
