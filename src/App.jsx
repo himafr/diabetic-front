@@ -16,7 +16,7 @@ import AppLayout from "./pages/AppLayout";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectRoute from "./pages/ProtectRoute";
 import MedAdd from "./pages/MedAdd";
-import MedPage from "./pages/medPage";
+import MedPage from "./pages/MedPage";
 import MedEdit from "./pages/MedEdit";
 import ProfilePage from "./pages/ProfilePage";
 import RecipesPage from "./pages/RecipesPage";
