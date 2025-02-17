@@ -6,6 +6,7 @@ import "./normalize.css";
 import "./index.css";
 import "./loader.css";
 import "./main.css";
+import './templatemo-xtra-blog.css';
 //import jsx files
 import App from "./App.jsx";
 // define base url for API requests

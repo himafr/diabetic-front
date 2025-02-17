@@ -85,6 +85,7 @@ function MedAdd() {
             name={med_name && med_name}
             price={med_price && med_price}
             category={med_cat&& med_cat}
+            setCart={()=>{}}
           />
         </div>
       </div>

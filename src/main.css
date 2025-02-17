@@ -17,7 +17,37 @@ body {
   text-align: left;
   font-family: "Rubik", serif !important;
   font-optical-sizing: auto;
+  font-size: 19px;
 }
+
+p, span { color: #999; }
+hr { 
+    border-top-color: #CCC; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Single Post page */
+hr.tm-hr-primary { border-top: 5px solid #0CC; }
+
+video {
+    width: 100%;
+    height: auto;
+}
+figure { margin: 0; }
+figcaption { line-height: 1.4; }
+a.tm-color-gray, .tm-color-gray { color: #999; }
+a.tm-color-gray:hover { color: #099; }
+.tm-bg-gray { background-color: #F3F4F5; }
+button:focus { outline: none; }
+a:hover { 
+    text-decoration: none; 
+    color: #048c8c;
+}
+
+a:hover figcaption { color: #056767; }
+
+
 /* end  global rules  */
 /* variables */
 

@@ -37,7 +37,6 @@ function WelcomePage() {
         <a href="#" className={styles.logo}>DIABETES</a>
         <ul className={styles.main_nav}>
           <li><a href="#articles">Articles</a></li>
-          <li><a href="#gallery">Gallery</a></li>
           <li><a href="#features">Features</a></li>
           
           <li>
@@ -51,6 +50,7 @@ function WelcomePage() {
                 {/* <!-- <li>
                   {/* <a href="#testimonials"><i className={styles.far fa-comments ${styles.fa-fw}"></i> Testimonials</a> 
                 </li> --> */}
+                <li><a href="#gallery">Gallery</a></li>
                 <li>
                   <a href="#team">
                   {/* <i className={`${styles.far} ${styles.fa-user} ${styles.fa-fw}`}></i> */}
@@ -85,7 +85,7 @@ function WelcomePage() {
           <p> يهدف هذا الموقع يهدف إلى مساعدة مريض السكري في الحصول على المعلومات والخدمات اللازمة لتحسين صحتهم </p>
         </div>
         <div className={styles.image}>
-          <img src="imgs/pang 1.jpg" alt="" />
+          <img className="relative bottom-10" src="imgs/pang 1.jpg" alt="" />
         </div>
       </div>
       <a href="#articles" className={styles.go_down}>
