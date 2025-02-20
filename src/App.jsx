@@ -53,6 +53,7 @@ function App() {
             <Route path="books/:id" element={<BookPage />} />
             <Route path="medicine/:id" element={<MedicinePage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="medicine/*" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<NotFound />} />
