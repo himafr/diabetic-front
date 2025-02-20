@@ -8,6 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import MedSkeleton from "../state/loading_state/MedSkeleton";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import Cart from "../components/Cart";
+import baseUrl from "../const/const";
 
 function MedicinePage() {
   const { user } = useAuth();
@@ -171,7 +172,15 @@ async  function addToCart(med_id) {
                         ? `edit/${med.med_id}`
                         : `${med.med_id}`
                     }
+                    linkName={
+                      user.role == "pharmacy"
+                        ? `edit/${med.med_id}`
+                        : `${med.med_id}`
+                    }
                     category={med.med_cat}
+                    src={med.med_photo != "not set"
+                ? `${baseUrl}get/${med.med_photo}`
+                : false}
                     name={med.med_name}
                     key={med.med_id}
                     price={med.med_price}
@@ -209,6 +218,9 @@ async  function addToCart(med_id) {
               {cart.map((med) => (
                 <Cart
                 qty={med.qty}
+                src={med.med_photo != "not set"
+                ? `${baseUrl}get/${med.med_photo}`
+                : false}
                 changeQty={[addQTYCart,minusQTYCart,changeQtyNum]}
                   med_id={med.med_id}
                   removeCart={removeFromCart}

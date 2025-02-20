@@ -132,7 +132,6 @@ export default function useMeds() {
           Authorization: `Bearer ${localStorage.jwt_token}`,
         },
       });
-
       if (response.data.status === "success") {
         setMedData({
           med_name: "",

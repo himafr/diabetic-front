@@ -24,7 +24,7 @@ const Popover = ({children ,element}) => {
     }, []);
 
     return (
-        <div className="relative inline-block" dir='rtl'>
+        <div className="relative inline-block">
             <button
                 type="button"
                 className="btn btn-secondary"
@@ -36,7 +36,7 @@ const Popover = ({children ,element}) => {
             {showPopover && (
                 <div
                     className="absolute z-10 w-64 p-4 mt-2 text-sm bg-white border border-gray-300 rounded shadow-lg"
-                    style={{ bottom: '-120px', left: '200%', transform: 'translateX(-50%)' }}
+                    style={{ bottom: '-120px', left: '-50%', transform: 'translateX(-50%)' }}
                     ref={popoverRef}
                 >
                   {children}

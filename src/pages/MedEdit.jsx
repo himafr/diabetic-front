@@ -29,6 +29,7 @@ function MedEdit() {
   async function handleUpdate(e) {
     try {
       await updateMed(e, id);
+      getMed();
     } catch (e) {
       setError(e.message);
       setTimeout(() => setError(null), 3000);
@@ -42,15 +43,16 @@ function MedEdit() {
       setTimeout(() => setError(null), 3000);
     }
   }
-  useEffect(() => {
-    async function getMed() {
-      try {
-        const myMed = await loadMedById(id);
-        setMedData(myMed);
-      } catch (e) {
-        setError(e.message);
-      }
+  async function getMed() {
+    try {
+      const myMed = await loadMedById(id);
+      setMedData(myMed);
+    } catch (e) {
+      setError(e.message);
     }
+  }
+  useEffect(() => {
+  
     getMed();
   }, [id]);
   if (error) return <h3 style={{ color: "red" }}>{error}</h3>;
@@ -90,15 +92,14 @@ function MedEdit() {
               width={"100%"}
               value={med_summary}
             />
-            <InputFieldHandle
-              type={"text"}
-              placeholder="medicine category"
-              name="med_cat"
-              required={true}
-              handleValue={handleChange}
-              width={"100%"}
-              value={med_cat}
-            />
+              <select name="med_cat" value={med_cat} onChange={handleChange}>
+            <option value="">Choose Medicine Category</option>
+            <option value="سكري" >سكري</option>
+            <option value="كوليسترول">كوليسترول</option>
+            <option value="فيتامينات">فيتامينات</option>
+            <option value="ضغط الدم">ضغط الدم</option>
+            </select>
+            
             {isLoading && <p className="loader"></p>}
             {error && <p>{error}</p>}
           </form>

@@ -6,16 +6,17 @@ import CircleAvatar from "./CircleAvatar";
 import Badge from "./Badge";
 import PillsIcon from "./myIcons/PillsIcon";
 import CakeIcon from "./myIcons/CakeIcon";
+import baseUrl from "../const/const";
 
 function NavBar() {
   const { isAuthenticated, logout, user } = useAuth();
   const navigate = useNavigate();
   return (
-    <div className="max-w-screen-2xl mx-auto px-4 ">
+    <div className="max-w-screen-2xl mx-auto ">
       <nav className="w-full py-6">
         <ul className="flex flex-row ">
           <li>
-            <NavLink className={"p-6 ml-7 font-bold"} to="/app/home">
+            <NavLink className={"p-6 ml-2 font-bold"} to="/app/home">
               <HomeIcon className="myNavIcon" />
               home
             </NavLink>
@@ -44,7 +45,7 @@ function NavBar() {
           :null
           }
 
-          <li className="mr-auto  ">
+          <li className="ml-auto  ">
             <ul>
               <li>
                 <Popover 
@@ -56,7 +57,7 @@ function NavBar() {
                           {user.role}
                         </Badge>
                       </div>
-                      {/* <CircleAvatar src={baseUrl+"get/"+user.photo}/> */}
+                      <CircleAvatar src={baseUrl+"get/"+user.photo}/>
                     </div>
                   }
                 >
