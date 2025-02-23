@@ -1,4 +1,3 @@
-import baseUrl from "../const/const";
 
 function Cart({ src, name, price, removeCart, med_id,changeQty ,qty}) {
     const[add,minus,changeQtyNum]=changeQty
@@ -8,7 +7,7 @@ function Cart({ src, name, price, removeCart, med_id,changeQty ,qty}) {
         <a href="#" className="shrink-0 md:order-1">
           <img
             className="h-20 w-20 dark:hidden"
-            src={baseUrl + "get" + { src }}
+            src={src}
             alt="image"
           />
           <img

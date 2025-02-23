@@ -2,21 +2,21 @@ import axios from "axios";
 import { useState } from "react";
 import baseUrl from "../const/const";
 
-export default function useBooks() {
+export default function useRecipe() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [bookData, setBookData] = useState({
-    book_title: "",
-    book_summary: "",
-    book_id: "",
-    book_photo: null,
-  });
+  // const [recipeData, setRecipeData] = useState({
+  //   recipe_title: "",
+  //   recipe_summary: "",
+  //   recipe_id: "",
+  //   recipe_photo: null,
+  // });
 
 
-  async function loadBooks({page,limit}){
+  async function loadRecipes({page,limit}){
     setIsLoading(true);
     try {
-      const response = await axios.get(`${baseUrl}api/v1/books?page=${page}&limit=${limit}`, {
+      const response = await axios.get(`${baseUrl}api/v1/recipes?page=${page}&limit=${limit}`, {
         headers: {
           Authorization: `Bearer ${localStorage.jwt_token}`,
       "Content-Type": "application/json",
@@ -25,21 +25,21 @@ export default function useBooks() {
       console.log("response")
       setIsLoading(false);
       if (response.data.status === "success") {
-        return [response.data.data.books, response.data.data.nums[0].nums];
+        return [response.data.data.recipes, response.data.data.nums[0].nums];
       } else {
         throw new Error(response.data.message);
       }
     } catch (error) {
       setIsLoading(false);
       console.error(error);
-      throw new Error("Failed to load books");
+      throw new Error("Failed to load Recipes");
     }
   };
 
-  async function loadBooksById(id){
+  async function loadRecipesById(id){
     setIsLoading(true);
     try {
-      const response = await axios.get(`${baseUrl}api/v1/books/${id}`, {
+      const response = await axios.get(`${baseUrl}api/v1/Recipes/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.jwt_token}`,
         },
@@ -69,7 +69,7 @@ export default function useBooks() {
     error,
     isLoading,
     setIsLoading,
-   loadBooks,
-   loadBooksById,
+   loadRecipes,
+   loadRecipesById,
   };
 }

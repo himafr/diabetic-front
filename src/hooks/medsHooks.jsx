@@ -62,7 +62,7 @@ export default function useMeds() {
       });
       setIsLoading(false);
       if (response.data.status === "success") {
-        return response.data.data.med;
+        return response.data.data;
       } else {
         throw new Error(response.data.message);
       }
@@ -190,6 +190,36 @@ export default function useMeds() {
       throw err;
     }
   }
+  
+  // async function deleteComment(id) {
+  //   setIsLoading(true);
+  //  console.log(id);
+  //   try {
+  //     const response = await axios.delete(`${baseUrl}api/v1/meds/comments/${id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.jwt_token}`,
+  //       },
+  //     });
+
+  //     if (response.data.status === "success") {
+  //       setIsLoading(false);
+  //     } else {
+  //       setIsLoading(false);
+  //       setError(response.data.message);
+  //       setTimeout(() => setError(null), 3000);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     setIsLoading(false);
+  //     const err=new Error
+  //     if (error.response?.data?.message) {
+  //       err.message=error.response.data.message
+  //     } else {
+  //       err.message="something went wrong"
+  //     }
+  //     throw err;
+  //   }
+  // }
 
 
   return {
@@ -205,6 +235,7 @@ export default function useMeds() {
     loadMedById,
     setMedData,
     updateMed,
-    deleteMed
+    deleteMed,
+    // deleteComment,
   };
 }

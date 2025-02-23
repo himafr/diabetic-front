@@ -1,0 +1,168 @@
+.h_div {
+    text-align: right;
+    margin: 20px;
+}
+
+.h_h1, .h_h2, .h_h4 {
+    text-align: right;
+    color: #444;
+}
+
+.ONE {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 60%;
+}
+
+.h_img {
+    margin-top: 20px;
+    width: 40%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+}
+
+.h_p {
+    text-align: right;
+    font-size: 16px;
+}
+
+.h_button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.h_button:hover {
+    background-color: #464d47;
+}
+
+.h_span {
+    font-size: 18px;
+    color: #f39c12;
+}
+
+.h_h2 {
+    color: #444;
+    margin-top: 40px;
+}
+
+.h_div .h_h2 {
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.h_div .h_textarea {
+    width: 80%;
+    height: 120px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    margin-bottom: 15px;
+
+}
+
+.h_p.five {
+    background-color: #f4f4f4;
+    color: #000;
+    width: 80%;
+    padding: 10px 20px;
+    margin-left: auto;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: right;
+}
+
+.h_div .h_button {
+    background-color: #27ae60;
+    color: #fff;
+    
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+}
+.two{
+
+    width: 80%;
+}
+
+.h_div .h_button:hover {
+    background-color: #2ecc71;
+}
+
+.h_button.four {
+    background-color: #3498db;
+    border: none;
+    padding: 10px 20px;
+    margin: 20px;
+    float: right;
+    display: inline-flex;
+    align-items: center;
+}
+
+.h_h3 {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.four:hover {
+    background-color: #57a819;
+}
+
+.stars {
+    margin-top: 10px;
+    margin-left: 10px;
+    display: inline-block;
+
+}
+
+.star {
+    font-size: 20px;
+    color: #f39c12; /* لون النجوم */
+    margin-right: 5px;
+}
+
+
+
+.comment {
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .ONE {
+        width: 100%;
+    }
+
+    .h_img {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .h_div > .h_div {
+        flex-direction: column;
+        align-items: center;
+    }
+}

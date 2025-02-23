@@ -9,10 +9,10 @@ function MedCard({
   price,
   date,
   linkEdit,
-  linkName,
   linkCat,
   setCart,
   med_id,
+  myMed
 }) {
   return (
     <div>
@@ -26,7 +26,7 @@ function MedCard({
               src={
                 src
                   ? src
-                  : "https://images.pexels.com/photos/61180/pexels-photo-61180.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500"
+                  : "/imgs/medicine.jpeg"
               }
               alt="Sunset in the mountains"
             />
@@ -40,7 +40,7 @@ function MedCard({
         </div>
         <div className="px-6 py-4 mb-auto">
           <Link
-            to={linkName}
+           to={linkEdit}
             className="font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-2"
           >
             {name ? name : "No name defined"}
@@ -50,20 +50,13 @@ function MedCard({
           </p>
           <button
             className="text-blue-500 text-sm float-right cursor-pointer pt-2"
-            onClick={() => setCart(med_id)}
+            onClick={() => setCart(myMed)}
           >
             اضف الي العربه
           </button>
         </div>
         <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
-          <span className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
-            EL
-            <span className="w-1"> </span>
-            <span className="ml-1"> {price ? price : "0"} </span>
-          </span>
-
-          <span className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
-            <span className="ml-1">{date ? date : "6 mins ago"}</span>
+        <span className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
             <svg
               height="13px"
               width="13px"
@@ -82,8 +75,18 @@ function MedCard({
                   <path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M277.333,256 c0,11.797-9.536,21.333-21.333,21.333h-85.333c-11.797,0-21.333-9.536-21.333-21.333s9.536-21.333,21.333-21.333h64v-128 c0-11.797,9.536-21.333,21.333-21.333s21.333,9.536,21.333,21.333V256z"></path>
                 </g>
               </g>
-            </svg>
+            </svg> 
+            <span className="w-1"> </span>
+            <span className="ml-1">{date ? date : "6 mins ago"}</span>
           </span>
+
+          <span className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
+            <span className="ml-1"> {price ? price : "0"} </span>
+            <span className="w-1"> </span>
+             LE
+          </span>
+
+        
         </div>
       </div>
     </div>

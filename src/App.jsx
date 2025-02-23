@@ -16,13 +16,13 @@ import AppLayout from "./pages/AppLayout";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectRoute from "./pages/ProtectRoute";
 import MedAdd from "./pages/MedAdd";
-import MedPage from "./pages/MedPage";
+import MedPage from "./pages/medPage/MedPage";
 import MedEdit from "./pages/MedEdit";
 import ProfilePage from "./pages/ProfilePage";
 import RecipesPage from "./pages/RecipesPage";
-import RecipePage from "./pages/RecipePage";
 import BooksPage from "./pages/BooksPage";
-import BookPage from "./pages/BookPage";
+import BookPage from "./pages/bookPage/BookPage";
+import RecipePage from "./pages/recipePage/RecipePage";
 function App() {
 
   return (
@@ -30,11 +30,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignUpPage />} />
           <Route
-            path="/app"
+            path="app"
             element={
               <ProtectRoute>
                 <AppLayout />
@@ -42,7 +42,7 @@ function App() {
             }
           >
             <Route index element={<Navigate to="home" replace />} />
-            <Route index path="home" element={<HomePage />} />
+            <Route path="home" element={<HomePage />} />
             <Route path="medicine" element={<MedicinePage />} />
             <Route path="medicine/add" element={<MedAdd />} />
             <Route path="medicine/edit/:id" element={<MedEdit />} />
@@ -64,3 +64,4 @@ function App() {
 }
 
 export default App;
+

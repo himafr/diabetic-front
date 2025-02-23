@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PlusButton from "../components/PlusButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useMeds from "../hooks/medsHooks";
 import MedCard from "../components/MedCard";
 import { useAuth } from "../context/AuthContext";
@@ -9,18 +9,18 @@ import MedSkeleton from "../state/loading_state/MedSkeleton";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import Cart from "../components/Cart";
 import baseUrl from "../const/const";
+import useCart from "../hooks/cartHooks";
 
 function MedicinePage() {
   const { user } = useAuth();
   const [meds, setMeds] = useState([]);
-  const [cart, setCart] = useState(localStorage.cartMeds?JSON.parse(localStorage.cartMeds):[]);
-  const [cartOpen, setCartOpen] = useState(false);
+  const { loadMeds } = useMeds();
   const [page, setPage] = useState(1);
   const [totalMeds, setTotalMeds] = useState(0);
-  const { loadMeds } = useMeds();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate=useNavigate()
+  const {setCartOpen,cart,cartOpen,addToCart,changeQtyNum,addQTYCart,minusQTYCart,removeFromCart}=useCart();
+  
 
   const loadMoreMeds = async () => {
     try {
@@ -52,54 +52,8 @@ function MedicinePage() {
     }
     getInitialMeds();
   }, []);
-  useEffect(() => {localStorage.cartMeds=JSON.stringify(cart),[cart]})
-async  function addToCart(med_id) {
-    let positionThisProductInCart = meds.findIndex(
-      (value) => value.med_id == med_id
-    );
-    let positionInCart = cart.findIndex((value) => value.med_id == med_id);
-    console.log(positionInCart);
-    if (positionInCart === -1) {
-      setCart((val) => [
-        ...val,
-        { ...meds[positionThisProductInCart], qty: 1 },
-      ]);
-    } else {
 
-      let newItem = cart[positionInCart];
-      setCart(val => val.filter(detail=>detail.med_id != med_id));
-      newItem.qty = newItem.qty + 1;
-      setCart(val =>[...val,newItem]);
-    }
-  }
-  function removeFromCart(med_id) {
-    console.log(med_id);
-    setCart(val => val.filter(detail=>detail.med_id != med_id));
-  }
-  function addQTYCart(med_id){
-    console.log("add qty")
-    let positionInCart = cart.findIndex((value) => value.med_id == med_id);
-    let newItem = cart[positionInCart];
-    newItem.qty = newItem.qty*1 + 1;
-    setCart(val => [...val.filter(detail=>detail.med_id!= med_id),newItem]);
-  }
-  function minusQTYCart(med_id){
-    console.log("add qty")
-    let positionInCart = cart.findIndex((value) => value.med_id == med_id);
-    let newItem = cart[positionInCart];
-    if(newItem.qty==1){
-      return removeFromCart(med_id)
-    }
-    newItem.qty = newItem.qty*1 - 1;
-    setCart(val => [...val.filter(detail=>detail.med_id!= med_id),newItem]);
-  }
-  function changeQtyNum(med_id, qty){
-    console.log("change qty")
-    let positionInCart = cart.findIndex((value) => value.med_id == med_id);
-    let newItem = cart[positionInCart];
-    newItem.qty = qty;
-    setCart(val => [...val.filter(detail=>detail.med_id!= med_id),newItem]);
-  }
+ 
   return !cartOpen ? (
     <div className="flex flex-col">
       <header>
@@ -172,6 +126,7 @@ async  function addToCart(med_id) {
                         ? `edit/${med.med_id}`
                         : `${med.med_id}`
                     }
+                    myMed={med}
                     linkName={
                       user.role == "pharmacy"
                         ? `edit/${med.med_id}`
