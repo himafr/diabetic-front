@@ -1,6 +1,34 @@
+import { useState } from "react";
 import baseUrl from "../const/const";
 
 export default function useUser(){
+  const [userData, setUserData] = useState({
+    // address: "",
+    // email: "",
+    // date_of_birth: "",
+    // cover_photo: null,
+    // photo:null,
+    // number:"",
+    // last_name:"",
+    // first_name:"",
+  });
+  const handleChange = (e) => {
+    console.log(e.target.name, e.target.value);
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+    console.log(userData)
+  };
+
+  const handleFilesChange = (e) => {
+    const file = e.target.files[0];
+    setUserData({ ...userData, [e.target.name]: file });
+    console.log(userData);
+    console.log(file);
+    // if (file && file instanceof File) {
+    //   setPreview(URL.createObjectURL(file));
+    // } else {
+    //   console.error("Invalid file:", file);
+    // }
+  };
     function isEmpty(obj) {
         return Object.keys(obj).length === 0;
     }    
@@ -21,25 +49,9 @@ async function getUserById(id){
             }
         };
 async function  changeUserData (e){
-    e.preventDefault();
-  const  [fname, lname, email, phone, address, birth] = [
-      e.fname,
-      e.lname,
-      e.email,
-      e.phone,
-      e.address,
-      e.birth,
-    ];
-    let dataToBeSent = {
-      ...(fname != "" && { first_name: fname }),
-      ...(lname != "" && { last_name: lname }),
-      ...(email != "" && { email: email }),
-      ...(phone != "" && { number: phone }),
-      ...(address != "" && { address: address }),
-      ...(birth != "" && { date_of_birth: birth }),
-    };
-  
-    if (isEmpty(dataToBeSent)) throw new Error("No data to be sent")
+e.preventDefault();
+  console.log("data")
+    if (isEmpty(userData)) throw new Error("No data to be sent")
         try{
         const response= await fetch(`${baseUrl}api/v1/users/id`, {
                 method: "PATCH",
@@ -47,11 +59,12 @@ async function  changeUserData (e){
                     Authorization: `Bearer ${localStorage.jwt_token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(dataToBeSent),
+                body: JSON.stringify(userData),
             })
             const res= await response.json()
             
                 if (res.status == "success") {
+                  window.location.reload()
                     return res.data
                 }
             }catch(e){
@@ -61,13 +74,17 @@ async function  changeUserData (e){
   
  async function changePhoto(type) {
     const formData = new FormData();
+    if (type == "cover") {
     formData.append(
-      type,
-      document.getElementById(`input_${type}_photo`).files[0]
-    );
+      "cover",
+     userData.cover_photo
+    );}
+    else if (type == "photo") {
+    formData.append(
+      "photo",
+     userData.photo
+    );}
 try{
-
-
 const response=await   fetch(`${baseUrl}api/v1/users/${type}`, {
       method: "POST",
       headers: {
@@ -90,6 +107,9 @@ const response=await   fetch(`${baseUrl}api/v1/users/${type}`, {
         changeUserData,
         changePhoto,
         getUserById,
+        userData,
+        handleChange,
+        handleFilesChange,
       }
   }
   

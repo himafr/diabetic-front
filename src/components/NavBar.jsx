@@ -7,10 +7,28 @@ import Badge from "./Badge";
 import PillsIcon from "./myIcons/PillsIcon";
 import CakeIcon from "./myIcons/CakeIcon";
 import baseUrl from "../const/const";
+import { useEffect, useState } from "react";
+import useUser from "../hooks/userHooks";
 
 function NavBar() {
   const { isAuthenticated, logout, user } = useAuth();
-  const navigate = useNavigate();
+  const [myUser,setMyUser]=useState()
+  const {getUserById}=useUser()
+  const [isLoading,setIsLoading] = useState(true)
+   useEffect(() =>{
+    async function loadUser(){
+      try{
+        setIsLoading(true);
+        const data=await getUserById(user.userId)
+        setMyUser(data.user)
+        setIsLoading(false)
+      }catch{
+        console.log('error')
+      }
+    }
+    loadUser()
+     },[])
+     if(isLoading)return <div>Loading...</div>
   return (
     <div className="max-w-screen-2xl mx-auto ">
       <nav className="w-full py-6">
@@ -27,7 +45,7 @@ function NavBar() {
             </NavLink>
           </li>
 
-          {user.role !="pharmacy"?<>
+          {myUser.role !="pharmacy"?<>
 
           <li>
             <NavLink className={"p-6 text-gray-300"} to="recipes">
@@ -52,12 +70,12 @@ function NavBar() {
                   element={
                     <div className="flex gap-4">
                       <div>
-                        <h5>{user.first_name}</h5>
-                        <Badge classBg={user.role=="patient"?"bg-yellow-300":"bg-green-300"} classColor="text-black">
+                        <h5>{myUser.first_name}</h5>
+                        <Badge classBg={myUser.role=="patient"?"bg-yellow-300":"bg-green-300"} classColor="text-black">
                           {user.role}
                         </Badge>
                       </div>
-                      <CircleAvatar src={baseUrl+"get/"+user.photo}/>
+                      <CircleAvatar src={baseUrl+"get/"+myUser.photo}/>
                     </div>
                   }
                 >
