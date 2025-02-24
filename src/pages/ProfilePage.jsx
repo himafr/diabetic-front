@@ -200,7 +200,7 @@ name="cover_photo"
           </div>
           {/* <!-- full name filled by Backend --> */}
           <div className="text-gray-700" id="user_full_name">
-            <div className="w-28 h-4">{myUser.first_name+"  "+myUser.last_name}</div>
+            <div className=" h-4">{myUser.first_name+"  "+myUser.last_name}</div>
           </div>
         </div>
         <hr className="my-4" />
@@ -213,7 +213,7 @@ name="cover_photo"
             className="text-gray-700 lowercase"
             id="user_email"
           >
-            <div className="w-38 h-4">{myUser.email}</div>
+            <div className=" h-4">{myUser.email}</div>
           </div>
         </div>
         <hr className="my-4" />
@@ -222,7 +222,7 @@ name="cover_photo"
             <h6 className="font-medium float-right">رقم الهاتف</h6>
           </div>
           <div className="text-gray-700" id="user_phone">
-            <div className="w-28 h-4">{myUser.number}</div>
+            <div className=" h-4">{myUser.number}</div>
           </div>
         </div>
         <hr className="my-4" />
@@ -231,7 +231,7 @@ name="cover_photo"
             <h6 className="font-medium float-right">العنوان</h6>
           </div>
           <div className="text-gray-700" id="user_address">
-            <div className="w-32 h-4">{myUser.address}</div>
+            <div className=" h-4">{myUser.address}</div>
           </div>
         </div>
         <hr className="my-4" />
@@ -240,7 +240,7 @@ name="cover_photo"
             <h6 className="font-medium float-right">تاريخ الميلاد</h6>
           </div>
           <div className="text-gray-700" id="date_of_birth">
-            <div className="w-40 h-4">{new Date(myUser.date_of_birth).toDateString()}</div>
+            <div className=" h-4">{new Date(myUser.date_of_birth).toDateString()}</div>
           </div>
         </div>
         <hr className="my-4" />
@@ -249,7 +249,7 @@ name="cover_photo"
             <h6 className="font-medium float-right">تاريخ الانضمام</h6>
           </div>
           <div className="text-gray-700" id="join_date">
-            <div className="w-48 h-4">{new Date(myUser.created_at).toDateString()}</div>
+            <div className=" h-4">{new Date(myUser.created_at).toDateString()}</div>
           </div>
         </div>
         <hr className="my-4" />
