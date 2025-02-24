@@ -175,7 +175,7 @@ name="cover_photo"
       <br />
       <br />
       <div className="information">
-        <div className="about btmb">حول</div>
+        <div className="about float-right relative bottom-8">حول</div>
       </div>
       {/* <!-- information --> */}
       <hr
