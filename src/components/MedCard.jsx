@@ -22,7 +22,7 @@ function MedCard({
         <div className="relative">
           <Link to={linkEdit}>
             <img
-              className="w-full max-h-95 object-cover"
+              className="w-full max-h-96 object-cover"
               src={
                 src
                   ? src
