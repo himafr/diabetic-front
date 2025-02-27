@@ -6,6 +6,8 @@ import Badge from "../../components/Badge";
 import { useAuth } from "../../context/AuthContext";
 import useComments from "../../hooks/commentHooks";
 import useBooks from "../../hooks/booksHooks";
+import StarRating from "../../components/starRating/StarRating";
+import useReview from "../../hooks/reviewHooks";
 
 function BookPage() {
     const {user}=useAuth()
@@ -15,9 +17,9 @@ function BookPage() {
   const [rating, setRating] = useState([{review_rating:10}]);
   const { id } = useParams();
   const { loadBooksById } = useBooks();
+  const {addReview,myRate,setMyRate}=useReview()
   const [loading, setLoading] =useState(true);
   const {addComment,onCommentChange}=useComments()
-
   useEffect(() => {
     setLoading(true);
     loadBooksById(id)
@@ -26,6 +28,8 @@ function BookPage() {
         setBook(data.book);
         setCommentsList(data.comments);
         if(data.review.length!=0)setRating(data.review);
+        console.log("rating.filter((rating)=>rating.user_id==user.userId ).length")
+        console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
       })
       .catch((err) => {
         console.log(err.message);
@@ -33,6 +37,10 @@ function BookPage() {
         setLoading(false)
       );
   }, [id]);
+
+async  function rateMe(){
+await addReview("books",book.book_id)
+  }
   return loading?<div>loading</div>:(
     <>
       <div
@@ -62,16 +70,30 @@ function BookPage() {
           <a target="_blank" href={`${baseUrl+"get/"+book.book_url}`} >تحميل الكتاب</a>
           <br />
           <h2 className={`${styles.h_h2}`}>التقييم</h2>
-          <span className={`${styles.h_span}`}>{rating?.reduce((total,num)=> total.review_rating+num.review_rating)/rating?.length||0}/10</span>
+          <span className={`${styles.h_span}`}>{rating.length==1?rating[0].review_rating: rating?.reduce((total,num)=> total.review_rating+num.review_rating)/rating?.length||0}/10</span>
         </div>
+<div 
+        style={{width:"50vw"}}
+        >
 
         <img
+        style={{width:"100%"}}
+
           className={`${styles.h_img}`}
           dir="ltr"
           src={baseUrl + "get/" + book?.book_photo}
           alt="صورة الكتاب"
         />
+        <br />
+       {rating.filter((rating)=>rating.user_id==user.userId ).length !=1?<>
+                    <hr />
+                    <StarRating  maxRating={10} onSetRating={setMyRate} size="28px"  />
+                    <br />
+                    {myRate?<button className="text-amber-400 py-2 rounded-2xl hover:bg-amber-200  px-4 border-2" onClick={rateMe} >Rate </button>:null}
+                    </>
+                    :null}
       </div>
+</div>
 
       <div className={`${styles.h_dive}`}>
         <h2 className={`${styles.h_h2}`}>التعليقات</h2>

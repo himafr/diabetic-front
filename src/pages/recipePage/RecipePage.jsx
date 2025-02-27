@@ -5,8 +5,12 @@ import baseUrl from "../../const/const";
 import Badge from "../../components/Badge";
 import useComments from "../../hooks/commentHooks";
 import useRecipe from "../../hooks/recipesHooks";
+import useReview from "../../hooks/reviewHooks";
+import StarRating from "../../components/starRating/StarRating";
+import { useAuth } from "../../context/AuthContext";
 
 function RecipePage() {
+
   const [recipe, setRecipe] = useState([]);
   const [commentsList, setCommentsList] = useState([{}]);
   const [rating, setRating] = useState([{ review_rating: 10 }]);
@@ -14,6 +18,8 @@ function RecipePage() {
   const { loadRecipesById } = useRecipe();
   const [loading, setLoading] = useState(true);
   const { addComment, onCommentChange } = useComments();
+    const {addReview,myRate,setMyRate}=useReview()
+  const {user}=useAuth()
 
   useEffect(() => {
     setLoading(true);
@@ -23,12 +29,17 @@ function RecipePage() {
         setRecipe(data.recipe);
         setCommentsList(data.comments);
         if (data.review.length != 0) setRating(data.review);
+console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
+console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
       })
       .catch((err) => {
         console.log(err.message);
       })
       .finally(setLoading(false));
   }, [id]);
+  async  function rateMe(){
+    await addReview("recipes",recipe.recipe_id)
+      }
   return loading ? (
     <div>loading</div>
   ) : (
@@ -90,21 +101,35 @@ function RecipePage() {
           {/* <a target="_blank" href={`${baseUrl+"get/"+recipe.recipe_url}`} >تحميل الكتاب</a> */}
           <h2 className={`${styles.h_h2}`}>التقييم</h2>
           <span className={`${styles.h_span}`}>
-            {rating?.reduce(
+            {rating.length==1?rating[0].review_rating: rating?.reduce(
               (total, num) => total.review_rating + num.review_rating
             ) / rating?.length || 0}
             /10
           </span>
           <br />
         </div>
-
+<div 
+        style={{width:"50vw"}}
+        >
         <img
+                style={{width:"100%"}}
+
           className={`${styles.h_img}`}
           dir="ltr"
           src={baseUrl + "get/" + recipe?.recipe_photo}
           alt="صورة الكتاب"
         />
-      </div>
+         <br />
+              {rating.filter((rating)=>rating.user_id==user.userId ).length !=1 ?<>
+
+              <hr />
+              <StarRating  maxRating={10} onSetRating={setMyRate} size="28px"  />
+              <br />
+              {myRate?<button className="text-amber-400 py-2 rounded-2xl hover:bg-amber-200  px-4 border-2" onClick={rateMe} >Rate </button>:null}
+              </>
+              :null}
+            </div>
+            </div>
 
       <div className={`${styles.h_dive}`}>
         <h2 className={`${styles.h_h2}`}>التعليقات</h2>

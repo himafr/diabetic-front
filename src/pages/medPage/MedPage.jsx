@@ -7,6 +7,8 @@ import useCart from "../../hooks/cartHooks";
 import Badge from "../../components/Badge";
 import { useAuth } from "../../context/AuthContext";
 import useComments from "../../hooks/commentHooks";
+import useReview from "../../hooks/reviewHooks";
+import StarRating from "../../components/starRating/StarRating";
 
 function MedPage() {
     const {user}=useAuth()
@@ -21,6 +23,8 @@ function MedPage() {
   const { loadMedById } = useMeds();
   const [loading, setLoading] =useState(true);
   const {addComment,onCommentChange}=useComments()
+    const {addReview,myRate,setMyRate}=useReview()
+  
 
   useEffect(() => {
     setLoading(true);
@@ -37,6 +41,9 @@ function MedPage() {
         setLoading(false)
       );
   }, [id]);
+  async  function rateMe(){
+    await addReview("meds",med.med_id)
+      }
   return loading?<div>loading</div>:(
     <>
       <div
@@ -72,15 +79,27 @@ function MedPage() {
             اضافة إلى عربة الشراء
           </button>
           <h2 className={`${styles.h_h2}`}>التقييم</h2>
-          <span className={`${styles.h_span}`}>{rating?.reduce((total,num)=> total.review_rating+num.review_rating)/rating?.length||0}/10</span>
+          <span className={`${styles.h_span}`}>{rating.length==1?rating[0].review_rating: rating?.reduce((total,num)=> total.review_rating+num.review_rating)/rating?.length||0}/10</span>
         </div>
-
+<div 
+        style={{width:"50vw"}}
+        >
         <img
+        style={{width:"100%"}}
           className={`${styles.h_img}`}
           dir="ltr"
           src={baseUrl + "get/" + med?.med_photo}
           alt="صورة العلاج"
         />
+           <br />
+          {rating.filter((rating)=>rating.user_id==user.userId ).length!=1?<>
+                       <hr />
+                       <StarRating  maxRating={10} onSetRating={setMyRate} size="28px"  />
+                       <br />
+                       {myRate?<button className="text-amber-400 py-2 rounded-2xl hover:bg-amber-200  px-4 border-2" onClick={rateMe} >Rate </button>:null}
+                       </>
+                       :null}
+              </div>
       </div>
 
       <div className={`${styles.h_dive}`}>

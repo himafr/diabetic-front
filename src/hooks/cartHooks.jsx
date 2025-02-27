@@ -5,8 +5,6 @@ export default function useCart(){
 const [cart, setCart] = useState(localStorage.cartMeds?JSON.parse(localStorage.cartMeds):[]);
   const [cartOpen, setCartOpen] = useState(false);
   async function addToCart(med) {
-    console.log(med);
-    console.log("med");
     if(isEmpty(med)) return;
     let positionInCart = cart.findIndex(value => value.med_id == med.med_id);
     console.log(positionInCart);

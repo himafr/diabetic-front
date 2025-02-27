@@ -23,10 +23,16 @@ import RecipesPage from "./pages/RecipesPage";
 import BooksPage from "./pages/BooksPage";
 import BookPage from "./pages/bookPage/BookPage";
 import RecipePage from "./pages/recipePage/RecipePage";
+
+import { SocketProvider, useSocket } from "./context/SocketContext";
 function App() {
+
+// const socket =useSocket();
 
   return (
     <AuthProvider>
+    <SocketProvider>
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
@@ -59,6 +65,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+    </SocketProvider>
     </AuthProvider>
   );
 }
