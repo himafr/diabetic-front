@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import baseUrl from "../../const/const";
 import Badge from "../../components/Badge";
 import { useAuth } from "../../context/AuthContext";
-import useComments from "../../hooks/commentHooks";
 import useBooks from "../../hooks/booksHooks";
 import StarRating from "../../components/starRating/StarRating";
 import useReview from "../../hooks/reviewHooks";
@@ -13,23 +12,18 @@ function BookPage() {
     const {user}=useAuth()
 
   const [book, setBook] = useState([]);
-  const [commentsList, setCommentsList] = useState([{}]);
-  const [rating, setRating] = useState([{review_rating:10}]);
+  const [rating, setRating] = useState([{review_rating:0,review_content:""}]);
   const { id } = useParams();
   const { loadBooksById } = useBooks();
-  const {addReview,myRate,setMyRate}=useReview()
+  const {addReview,myReview,onCommentChange,onRateChange}=useReview()
   const [loading, setLoading] =useState(true);
-  const {addComment,onCommentChange}=useComments()
   useEffect(() => {
     setLoading(true);
     loadBooksById(id)
       .then((data) => {
           console.log(data)
         setBook(data.book);
-        setCommentsList(data.comments);
         if(data.review.length!=0)setRating(data.review);
-        console.log("rating.filter((rating)=>rating.user_id==user.userId ).length")
-        console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
       })
       .catch((err) => {
         console.log(err.message);
@@ -85,28 +79,34 @@ await addReview("books",book.book_id)
           alt="صورة الكتاب"
         />
         <br />
-       {rating.filter((rating)=>rating.user_id==user.userId ).length !=1?<>
-                    <hr />
-                    <StarRating  maxRating={10} onSetRating={setMyRate} size="28px"  />
-                    <br />
-                    {myRate?<button className="text-amber-400 py-2 rounded-2xl hover:bg-amber-200  px-4 border-2" onClick={rateMe} >Rate </button>:null}
-                    </>
-                    :null}
+      
       </div>
 </div>
 
       <div className={`${styles.h_dive}`}>
-        <h2 className={`${styles.h_h2}`}>التعليقات</h2>
-        <textarea
+        <h2 className={`${styles.h_h2}`}>التقيمات</h2>
+        {rating.filter((rating)=>rating.user_id==user.userId ).length !=1?<div className="mx-10 ">
+                    <hr />
+                    <StarRating  maxRating={5} onSetRating={onRateChange} size="28px"  />
+                    <br />
+                   
+                    <br />
+                    <textarea
           style={{ width: "100%", backgroundColor: "white" }}
           dir="rtl"
           className={styles.h_textarea}
-          placeholder="أضف تعليقك"
+          placeholder="أضف تقيمك"
         onChange={(e)=>onCommentChange(e.target.value)}></textarea>
         <br style={{ height: "1px" }} />
-        <button onClick={()=>addComment("books",book.book_id)} className={`${styles.h_button} ${styles.four}`}>
-          أضف تعليق
-        </button>
+        {myReview.review_rating?
+          <button onClick={rateMe} className={`${styles.h_button} ${styles.four}`}>
+          أضف تقييم
+        </button>:null}
+       
+                    
+                    </div>
+                    :null}
+      
       </div>
       <br />
       <br />
@@ -115,9 +115,9 @@ await addReview("books",book.book_id)
       <div className={`${styles.h_dive}`}>
         <h2 className={`${styles.h_h2}`}>التعليقات</h2>
         {
-          commentsList?.map((comment) => (
+          rating?.map((comment,index) => (
 <>
-              <div className={`${styles.h_dive} ${styles.comment}`}>
+              <div key={index} className={`${styles.h_dive} ${styles.comment}`}>
                 <h3 className={`${styles.h_h3}`}>
                   <img
                     className={`${styles.h_img} ${styles.avatar}`}
@@ -133,12 +133,10 @@ await addReview("books",book.book_id)
                         </Badge>
                   </div>
                 </h3>
-                <p className={`${styles.h_p} ${styles.five}`}>{comment.comment_content}</p>
+                <p className={`${styles.h_p} ${styles.five}`}>{comment.review_content}</p>
                 <div className="flex justify-around">
-                    <span >date {new Date(comment.comment_date).toDateString()}</span>
+                    <span >date {new Date(comment.review_date).toDateString()}</span>
                     <span>full name {comment.first_name + " "+comment.last_name}</span>
-                    {/* {user?.userId==comment?.user_id&&<button className="cursor-pointer text-red-500"  
-                    onClick={()=>{deleteComment(comment.comment_id)}}>delete comment</button>} */}
                 </div>
               </div>
               <hr />
@@ -151,6 +149,8 @@ await addReview("books",book.book_id)
 
 export default BookPage;
 
+{/* {user?.userId==comment?.user_id&&<button className="cursor-pointer text-red-500"  
+onClick={()=>{deleteComment(comment.comment_id)}}>delete comment</button>} */}
 {
   /* <div className={`${styles.h_dive} ${styles.comment}`} >
 <h3 className={`${styles.h_h3}`}>

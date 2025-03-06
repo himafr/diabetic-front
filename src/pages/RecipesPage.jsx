@@ -6,7 +6,6 @@ import baseUrl from "../const/const";
 import RecipeCard from "../components/RecipeCard";
 
 function RecipesPage() {
-  
   const [recipes, setRecipes] = useState([]);
   const [page, setPage] = useState(1);
   const [totalRecipes, setTotalRecipes] = useState(0);
@@ -16,14 +15,17 @@ function RecipesPage() {
 
   const loadMoreRecipes = async () => {
     try {
-      const [newRecipes, totalRecipesCount] = await loadRecipes({ page, limit: 6 });
+      const [newRecipes, totalRecipesCount] = await loadRecipes({
+        page,
+        limit: 6,
+      });
       setRecipes((prevRecipes) => [...prevRecipes, ...newRecipes]);
       setTotalRecipes(totalRecipesCount);
       setPage((prevPage) => prevPage + 1);
     } catch (e) {
       e.message = "something went wrong please try again latter";
-      console.log(e)
-      alert(e.message)
+      console.log(e);
+      alert(e.message);
       setError(e);
     }
   };
@@ -42,8 +44,8 @@ function RecipesPage() {
       } catch (e) {
         setLoading(false);
         e.message = "No Medicine Found";
-        console.log(e)
-        alert(e.message)
+        console.log(e);
+        alert(e.message);
         setError(e);
       }
     }
@@ -72,7 +74,7 @@ function RecipesPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
               {recipes.map((recipe) => (
                 <RecipeCard
-                category={recipe.category_name}
+                  category={recipe.category_name}
                   instructions={`${recipe.instructions.substring(0, 200)}...`}
                   name={recipe.recipe_name}
                   key={recipe.recipe_id}
@@ -85,18 +87,12 @@ function RecipesPage() {
         )}
         {error && (
           <div className="text-center mt-4" style={{ color: "red" }}>
-            {" "}
             {error.message}
           </div>
         )}
-        {/*    
-     <RecipesSkeleton />
-     <recipeCard /> */}
       </div>
     </div>
   );
-
-
 }
 
 export default RecipesPage;

@@ -42,28 +42,11 @@ function ProfilePage() {
   loadUser()
    },[])
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await changeUserData({
-  //       username: e.target.username.value,
-  //       email: e.target.email.value,
-  //       password: e.target.password.value,
-  //       password_confirmation: e.target.password_confirmation.value,
-  //     });
-  //   } catch (error) {
-  //     setError("Error updating user data");
-  //   }
-  // };
-  // if (loading) return <div>Loading...</div>;
  if (isLoading) return <div>Loading...</div>;
   return (
-    // < className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 bg-amber-100">
     <div className="max-w-screen-xl mx-auto ">
 
-      {/* <!-- User basic infos --> */}
       <div className="mb-10">
-        {/* <!-- cover image --> */}
         <div>
           <img
             src={baseUrl+"get/"+ myUser?.cover_photo}
@@ -71,14 +54,8 @@ function ProfilePage() {
             alt="cover image"
           />
         </div>
-        {/* <!-- cover image -->
-            <!-- data holder --> */}
         <div className="flex flex-row-reverse justify-between h-20">
-          {/* <!-- user photo and change it--> */}
           <div className="flex flex-row-reverse gap-10">
-            {/* <button
-              style={{ }}
-            > */}
             <UserPopover btnStyle={{ all: "unset", position: "relative", bottom: "80px"}} element={ <CircleAvatar
                 src={baseUrl+"get/"+myUser?.photo}
                 imgClass={"w-40 h-40 "}
@@ -103,11 +80,7 @@ name="photo"
     </div>
   </form>
     </UserPopover>
-           
-            {/* </button> */}
             <div className="flex flex-row-reverse justify-around text-right ">
-              {/* <!-- user photo and change it-->
-                <!-- user name and role --> */}
               <div>
                 <h4>
                 {myUser.first_name+" "+myUser.last_name}
@@ -116,7 +89,6 @@ name="photo"
                   {myUser.role}
                 </Badge>
                              </div>
-              {/* <!-- / user name and role --> */}
             </div>
           </div>
 
@@ -132,12 +104,10 @@ name="photo"
                 className="flex flex-row-reverse"
                 style={{ color: " rgb(255, 0, 0)", fontSize: "29px" ,position: "relative",bottom:"16px" }}
               >
-        
                 <HeartIconSolid className="w-12" />
               </div>
             </div>
           </div>
-
           <div className="relative left-10 bottom-20">
           <UserPopover btnStyle={{ all: "unset", position: "relative"}} element={  <button
               data-toggle="modal"
@@ -168,16 +138,12 @@ name="cover_photo"
     </UserPopover>
           </div>
         </div>
-        {/* <!-- data holder --> */}
       </div>
-      {/* <!-- // User basic infos --> */}
-      {/* <!-- information --> */}
       <br />
       <br />
       <div className="information">
         <div className="about float-right relative bottom-8">حول</div>
       </div>
-      {/* <!-- information --> */}
       <hr
         style={{
           marginTop: "1px",
@@ -208,7 +174,6 @@ name="cover_photo"
           <div>
             <h6 className="font-medium float-right">البريد الالكتروني</h6>
           </div>
-          {/* <!-- email filled by Backend --> */}
           <div
             className="text-gray-700 lowercase"
             id="user_email"

@@ -79,13 +79,9 @@ function BooksPage() {
         )}
         {error && (
           <div className="text-center mt-4" style={{ color: "red" }}>
-            {" "}
             {error.message}
           </div>
         )}
-        {/*    
-     <BooksSkeleton />
-     <BookCard /> */}
       </div>
     </div>
   );

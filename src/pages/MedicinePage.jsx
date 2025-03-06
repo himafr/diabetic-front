@@ -19,8 +19,16 @@ function MedicinePage() {
   const [totalMeds, setTotalMeds] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const {setCartOpen,cart,cartOpen,addToCart,changeQtyNum,addQTYCart,minusQTYCart,removeFromCart}=useCart();
-  
+  const {
+    setCartOpen,
+    cart,
+    cartOpen,
+    addToCart,
+    changeQtyNum,
+    addQTYCart,
+    minusQTYCart,
+    removeFromCart,
+  } = useCart();
 
   const loadMoreMeds = async () => {
     try {
@@ -53,7 +61,6 @@ function MedicinePage() {
     getInitialMeds();
   }, []);
 
- 
   return !cartOpen ? (
     <div className="flex flex-col">
       <header>
@@ -86,10 +93,10 @@ function MedicinePage() {
             </svg>
             <span className="absolute bg-red-600 w-6 h-6 flex justify-center items-center rounded-4xl text-white -right-5 top-4">
               {cart.length !== 0
-    ? cart.length !== 1
-        ? cart.reduce((total, val) => total + val.qty, 0)
-        : cart[0].qty
-    : 0}
+                ? cart.length !== 1
+                  ? cart.reduce((total, val) => total + val.qty, 0)
+                  : cart[0].qty
+                : 0}
             </span>
           </div>
         )}
@@ -133,9 +140,11 @@ function MedicinePage() {
                         : `${med.med_id}`
                     }
                     category={med.med_cat}
-                    src={med.med_photo != "not set"
-                ? `${baseUrl}get/${med.med_photo}`
-                : false}
+                    src={
+                      med.med_photo != "not set"
+                        ? `${baseUrl}get/${med.med_photo}`
+                        : false
+                    }
                     name={med.med_name}
                     key={med.med_id}
                     price={med.med_price}
@@ -172,11 +181,13 @@ function MedicinePage() {
             <div className="space-y-6">
               {cart.map((med) => (
                 <Cart
-                qty={med.qty}
-                src={med.med_photo != "not set"
-                ? `${baseUrl}get/${med.med_photo}`
-                : false}
-                changeQty={[addQTYCart,minusQTYCart,changeQtyNum]}
+                  qty={med.qty}
+                  src={
+                    med.med_photo != "not set"
+                      ? `${baseUrl}get/${med.med_photo}`
+                      : false
+                  }
+                  changeQty={[addQTYCart, minusQTYCart, changeQtyNum]}
                   med_id={med.med_id}
                   removeCart={removeFromCart}
                   name={med.med_name}
@@ -202,38 +213,23 @@ function MedicinePage() {
                       السعر الاصلي
                     </dt>
                     <dd className="text-base font-medium text-gray-900 dark:text-white">
-                    {cart.length !== 0
-    ? cart.length !== 1
-        ? cart.reduce((total, val) => total + val.qty*val.med_price, 0)
-        : cart[0].qty*cart[0].med_price
-    : 0}
+                      {cart.length !== 0
+                        ? cart.length !== 1
+                          ? cart.reduce(
+                              (total, val) => total + val.qty * val.med_price,
+                              0
+                            )
+                          : cart[0].qty * cart[0].med_price
+                        : 0}
                     </dd>
                   </dl>
-
-                  {/* <dl className="flex items-center justify-between gap-4">
-                    <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                      Savings
-                    </dt>
-                    <dd className="text-base font-medium text-green-600">
-                      -$299.00
-                    </dd>
-                  </dl>
-
-                  <dl className="flex items-center justify-between gap-4">
-                    <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                      Store Pickup
-                    </dt>
-                    <dd className="text-base font-medium text-gray-900 dark:text-white">
-                      $99
-                    </dd>
-                  </dl> */}
 
                   <dl className="flex items-center justify-between gap-4">
                     <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
                       الضرائب
                     </dt>
                     <dd className="text-base font-medium text-gray-900 dark:text-white">
-                      0LE 
+                      0LE
                     </dd>
                   </dl>
                 </div>
@@ -242,16 +238,17 @@ function MedicinePage() {
                   <dt className="text-base font-bold text-gray-900 dark:text-white">
                     المجموع
                   </dt>
-                  <dd className="text-base font-bold text-gray-900 dark:text-white">
-                    
-                  </dd>
+                  <dd className="text-base font-bold text-gray-900 dark:text-white"></dd>
                 </dl>
               </div>
               {cart.length !== 0
-    ? cart.length !== 1
-        ? cart.reduce((total, val) => total + val.qty*val.med_price, 0)
-        : cart[0].qty*cart[0].med_price
-    : 0}
+                ? cart.length !== 1
+                  ? cart.reduce(
+                      (total, val) => total + val.qty * val.med_price,
+                      0
+                    )
+                  : cart[0].qty * cart[0].med_price
+                : 0}
               <a
                 href="#"
                 className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -265,7 +262,7 @@ function MedicinePage() {
                 </span>
                 <a
                   href="#"
-                  onClick={()=>setCartOpen(false)}
+                  onClick={() => setCartOpen(false)}
                   title=""
                   className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
                 >

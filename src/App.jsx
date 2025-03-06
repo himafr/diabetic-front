@@ -1,9 +1,4 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import AboutPage from "./pages/AboutPage";
 import HomePage from "./pages/HomePage";
@@ -25,12 +20,8 @@ import BookPage from "./pages/bookPage/BookPage";
 import RecipePage from "./pages/recipePage/RecipePage";
 
 function App() {
-
-// const socket =useSocket();
-
   return (
     <AuthProvider>
-
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
@@ -68,4 +59,3 @@ function App() {
 }
 
 export default App;
-

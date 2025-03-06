@@ -27,7 +27,9 @@ function PatientDashboard() {
         setBgm2(data.bgm2.map(e=>e.bgm_num));
         setBgm3(data.bgm3.map(e=>e.bgm_num));
     }
-    setIsLoading(false);
+    setInterval(()=>{
+      setIsLoading(false);
+    },1000);
     }
     loadUserData();
   }, []);

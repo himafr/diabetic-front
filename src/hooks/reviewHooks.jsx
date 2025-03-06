@@ -3,14 +3,22 @@ import { useState } from "react";
 import baseUrl from "../const/const";
 
 export default function useReview() {
-    const [myRate, setMyRate] = useState(0)
-  
-
+    const [myReview, setMyReview] = useState({
+      review_rating: 0,
+      review_content: "",
+    });
+    function onCommentChange(comment){
+      setMyReview(val=>{return {...val,review_content:comment}})
+      console.log(myReview)
+  }
+    function onRateChange(rate){
+      setMyReview(val=>{return {...val,review_rating:rate}})
+  }
     async function addReview(route,id) {
       try {
         const response = await axios.post(
           `${baseUrl}api/v1/${route}/review/${id}`,
-          {review_rating:myRate},
+          myReview,
           {
             headers: {
               "Content-Type": "application/json",
@@ -20,8 +28,9 @@ export default function useReview() {
         );
 
         if (response.data.status === "success") {
-          setMyRate({
+          setMyReview({
             review_rating: 0,
+            review_content: "",
           });
           window.location.reload();
         }
@@ -32,8 +41,9 @@ export default function useReview() {
     }
     return {
         addReview,
-        myRate,
-        setMyRate,
+        myReview,
+        onCommentChange,
+        onRateChange
     };
   }
 

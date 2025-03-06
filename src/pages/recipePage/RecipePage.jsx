@@ -3,7 +3,6 @@ import styles from "./RecipePage.module.css";
 import { useParams } from "react-router-dom";
 import baseUrl from "../../const/const";
 import Badge from "../../components/Badge";
-import useComments from "../../hooks/commentHooks";
 import useRecipe from "../../hooks/recipesHooks";
 import useReview from "../../hooks/reviewHooks";
 import StarRating from "../../components/starRating/StarRating";
@@ -12,13 +11,12 @@ import { useAuth } from "../../context/AuthContext";
 function RecipePage() {
 
   const [recipe, setRecipe] = useState([]);
-  const [commentsList, setCommentsList] = useState([{}]);
-  const [rating, setRating] = useState([{ review_rating: 10 }]);
+  const [rating, setRating] = useState([{review_rating:0,review_content:""}]);
   const { id } = useParams();
   const { loadRecipesById } = useRecipe();
   const [loading, setLoading] = useState(true);
-  const { addComment, onCommentChange } = useComments();
-    const {addReview,myRate,setMyRate}=useReview()
+  const {addReview,myReview,onCommentChange,onRateChange}=useReview()
+
   const {user}=useAuth()
 
   useEffect(() => {
@@ -27,7 +25,6 @@ function RecipePage() {
       .then((data) => {
         console.log(data);
         setRecipe(data.recipe);
-        setCommentsList(data.comments);
         if (data.review.length != 0) setRating(data.review);
 console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
 console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
@@ -54,7 +51,7 @@ console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
         }}
       >
         <div className={`${styles.h_div} ${styles.ONE}`}>
-          <h1 className={`${styles.h_h1}`}>اسم الكتاب</h1>
+          <h1 className={`${styles.h_h1}`}>اسم الوصفة</h1>
           <br />
           <h4 className={`${styles.h_h4}`}>{recipe?.recipe_name}</h4>
           <p className="float-left">{recipe?.category_name}</p>
@@ -117,36 +114,37 @@ console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
           className={`${styles.h_img}`}
           dir="ltr"
           src={baseUrl + "get/" + recipe?.recipe_photo}
-          alt="صورة الكتاب"
+          alt="صورة الوصفه"
         />
          <br />
-              {rating.filter((rating)=>rating.user_id==user.userId ).length !=1 ?<>
-
-              <hr />
-              <StarRating  maxRating={10} onSetRating={setMyRate} size="28px"  />
-              <br />
-              {myRate?<button className="text-amber-400 py-2 rounded-2xl hover:bg-amber-200  px-4 border-2" onClick={rateMe} >Rate </button>:null}
-              </>
-              :null}
+             
             </div>
             </div>
 
       <div className={`${styles.h_dive}`}>
-        <h2 className={`${styles.h_h2}`}>التعليقات</h2>
-        <textarea
+        <h2 className={`${styles.h_h2}`}>التقيمات</h2>
+        {rating.filter((rating)=>rating.user_id==user.userId ).length !=1?<div className="mx-10 ">
+                    <hr />
+                    <StarRating  maxRating={5} onSetRating={onRateChange} size="28px"  />
+                    <br />
+                   
+                    <br />
+                    <textarea
           style={{ width: "100%", backgroundColor: "white" }}
           dir="rtl"
           className={styles.h_textarea}
-          placeholder="أضف تعليقك"
-          onChange={(e) => onCommentChange(e.target.value)}
-        ></textarea>
+          placeholder="أضف تقيمك"
+        onChange={(e)=>onCommentChange(e.target.value)}></textarea>
         <br style={{ height: "1px" }} />
-        <button
-          onClick={() => addComment("recipes", recipe.recipe_id)}
-          className={`${styles.h_button} ${styles.four}`}
-        >
-          أضف تعليق
-        </button>
+        {myReview.review_rating?
+          <button onClick={rateMe} className={`${styles.h_button} ${styles.four}`}>
+          أضف تقييم
+        </button>:null}
+       
+                    
+                    </div>
+                    :null}
+
       </div>
       <br />
       <br />
@@ -154,7 +152,7 @@ console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
       <br />
       <div className={`${styles.h_dive}`}>
         <h2 className={`${styles.h_h2}`}>التعليقات</h2>
-        {commentsList?.map((comment) => (
+        {rating?.map((comment) => (
           <>
             <div
               key={comment.comment_id}
@@ -182,7 +180,7 @@ console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
                 </div>
               </h3>
               <p className={`${styles.h_p} ${styles.five}`}>
-                {comment.comment_content}
+                {comment.review_content}
               </p>
               <div className="flex justify-around">
                 <span>
@@ -191,8 +189,6 @@ console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
                 <span>
                   full name {comment.first_name + " " + comment.last_name}
                 </span>
-                {/* {user?.userId==comment?.user_id&&<button className="cursor-pointer text-red-500"  
-                    onClick={()=>{deleteComment(comment.comment_id)}}>delete comment</button>} */}
               </div>
             </div>
             <hr />
@@ -204,76 +200,3 @@ console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
 }
 
 export default RecipePage;
-
-{
-  /* <div className={`${styles.h_dive} ${styles.comment}`} >
-<h3 className={`${styles.h_h3}`}>
-    <img className={`${styles.h_img} ${styles.avatar}`} src="./ahrecipe.jpg" alt="Avatar"  /> إبراهيم أحمد
-</h3>
-<div className={`${styles.h_dive} ${styles.stars}`} >
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9734;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9734;</span>
-</div>
-<p className={`${styles.h_p} ${styles.five}`} >علاج مريح جدا</p>
-<button className={`${styles.h_button} ${styles.like_btn}`} >
-    <span className={`${styles.h_span} ${styles.like_icon}`} >&#128077;</span>
-</button>
-<button className={`${styles.h_button} ${styles.unlike_btn}`} >
-    <span className={`${styles.h_span} ${styles.unlike_icon} `} >&#128078;</span>
-</button>
-      
-      <button className={`${styles.h_button} ${styles.reply_btn}`} >Reply</button>
-</div>
-<hr />
-
-
-<div className={`${styles.h_dive} ${styles.comment}`} >
-<h3 className={`${styles.h_h3}`}>
-    <img className={`${styles.h_img} ${styles.avatar}`} src="IMG-20250216-WA0011(1).jpg" alt="Avatar"  /> أحمد محمد
-</h3>
-<div className={`${styles.h_dive} ${styles.stars}`} >
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-</div>
-<p className={`${styles.h_p} ${styles.five}`} >علاج مفيد</p>
-<button className={`${styles.h_button} ${styles.like_btn}`} >
-    <span className={`${styles.h_span} ${styles.like_icon}`} >&#128077;</span>
-</button>
-<button className={`${styles.h_button} ${styles.unlike_btn}`} >
-    <span className={`${styles.h_span} ${styles.unlike_icon} `} >&#128078;</span>
-</button>
-      
-      <button className={`${styles.h_button} ${styles.reply_btn}`} >Reply</button>
-</div>
-<hr />
-
-<div className={`${styles.h_dive} ${styles.comment}`} >
-<h3 className={`${styles.h_h3}`}>
-    <img className={`${styles.h_img} ${styles.avatar}`} src="./mabrouk.jpg" alt="Avatar"/> مبروك 
-</h3>
-<div className={`${styles.h_dive} ${styles.stars}`} >
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9734;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9734;</span>
-</div>
-<p className={`${styles.h_p} ${styles.five}`} >علاج مفيد</p>
-<button className={`${styles.h_button} ${styles.like_btn}`} >
-    <span className={`${styles.h_span} ${styles.like_icon}`} >&#128077;</span>
-</button>
-<button className={`${styles.h_button} ${styles.unlike_btn}`} >
-    <span className={`${styles.h_span} ${styles.unlike_icon} `} >&#128078;</span>
-</button>
-      
-      <button className={`${styles.h_button} ${styles.reply_btn}`} >Reply</button>
-
-
-</div> */
-}
