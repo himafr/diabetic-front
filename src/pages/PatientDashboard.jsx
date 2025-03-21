@@ -7,11 +7,27 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
 function PatientDashboard() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Add a listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const {user}=useAuth()
     const [isLoading,setIsLoading]=useState(true)
   const [bgm,setBgm] = useState([]);
   const [bgm2,setBgm2] = useState([]);
   const [bgm3,setBgm3] = useState([]);
+  
   useEffect(() => {
   async  function loadUserData(){
     setIsLoading(true);
@@ -39,7 +55,10 @@ function PatientDashboard() {
   }
   return (
     <div>
+    <div className={windowWidth>700?"grid grid-cols-2":""}>
       <BarChart seriesName={["قياسات الشهر الحالي","قياسات الشهر الماضي"]} seriesValue={[bgm2,bgm3]}/>
+    <div>  { windowWidth}</div>
+    </div>
       <UserTable   bgm={bgm} header={["صورة","اسم المستخدم ","قياس السكر","تاريخ القياس","الحاله"]}/>
     </div>
   );

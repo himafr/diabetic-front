@@ -83,143 +83,118 @@ await addReview("books",book.book_id)
       </div>
 </div>
 
-      <div className={`${styles.h_dive}`}>
-        <h2 className={`${styles.h_h2}`}>التقيمات</h2>
-        {rating.filter((rating)=>rating.user_id==user.userId ).length !=1?<div className="mx-10 ">
-                    <hr />
-                    <StarRating  maxRating={5} onSetRating={onRateChange} size="28px"  />
-                    <br />
-                   
-                    <br />
-                    <textarea
-          style={{ width: "100%", backgroundColor: "white" }}
-          dir="rtl"
-          className={styles.h_textarea}
-          placeholder="أضف تقيمك"
-        onChange={(e)=>onCommentChange(e.target.value)}></textarea>
-        <br style={{ height: "1px" }} />
-        {myReview.review_rating?
-          <button onClick={rateMe} className={`${styles.h_button} ${styles.four}`}>
-          أضف تقييم
-        </button>:null}
-       
-                    
-                    </div>
-                    :null}
-      
+<div className={`${styles.h_dive}`}>
+      {/* بشوف اذا اضاف المستخدم تعليق من قبل ام لا  */}
+      {/* لو لا هنعرض الفورم الخاصه ب الاضافه  */}
+        {rating.filter((rating) => rating.user_id == user.userId).length !=
+        1 ? (
+          
+          <div className="mx-10 ">
+            <h2 className={`${styles.h_h2}`}>التقيمات</h2>
+            <hr />
+            <StarRating maxRating={5} onSetRating={onRateChange} size="28px" />
+            <br />
+
+            <br />
+            <textarea
+              style={{ width: "100%", backgroundColor: "white" }}
+              dir="rtl"
+              className={styles.h_textarea}
+              placeholder="أضف تقيمك"
+              onChange={(e) => onCommentChange(e.target.value)}
+            ></textarea>
+            <br style={{ height: "1px" }} />
+            {myReview.review_rating ? (
+              <button
+                onClick={rateMe}
+                className={`${styles.h_button} ${styles.four}`}
+              >
+                أضف تقييم
+              </button>
+            ) : null}
+          </div>
+        ) : null}
       </div>
       <br />
       <br />
       <br />
       <br />
+      {/* مكان عرض جميع التعليقات  */}
       <div className={`${styles.h_dive}`}>
         <h2 className={`${styles.h_h2}`}>التعليقات</h2>
-        {
-          rating?.map((comment,index) => (
-<>
-              <div key={index} className={`${styles.h_dive} ${styles.comment}`}>
-                <h3 className={`${styles.h_h3}`}>
-                  <img
-                    className={`${styles.h_img} ${styles.avatar}`}
-                    src={baseUrl+"get/"+comment.photo}
-                    alt="Avatar"
-                  />
-                  <div className="flex flex-col">
-
+        {rating?.map((comment) => (
+          <>
+            <div
+              key={comment.comment_id}
+              className={`${styles.h_dive} ${styles.comment}`}
+            >
+              <h3 className={`${styles.h_h3}`}>
+                <img
+                  className={`${styles.h_img} ${styles.avatar}`}
+                  src={baseUrl + "get/" + comment.photo}
+                  alt="Avatar"
+                />
+                <div className="flex flex-col">
                   {comment.username}
-                  
-                 <Badge classBg={comment.role=="patient"?"bg-yellow-300":"bg-green-300"} classColor="text-black">
-                          {comment.role}
-                        </Badge>
-                  </div>
-                </h3>
-                <p className={`${styles.h_p} ${styles.five}`}>{comment.review_content}</p>
-                <div className="flex justify-around">
-                    <span >date {new Date(comment.review_date).toDateString()}</span>
-                    <span>full name {comment.first_name + " "+comment.last_name}</span>
+
+                  <Badge
+                    classBg={
+                      comment.role == "patient"
+                        ? "bg-yellow-300"
+                        : "bg-green-300"
+                    }
+                    classColor="text-black"
+                  >
+                    {comment.role}
+                  </Badge>
                 </div>
+              </h3>
+
+              <div className="float-end">
+                {Array.from({ length: 5 }, (_, index) =>
+                  parseInt(comment.review_rating) > index ? (
+                    <span
+                      style={{
+                        color: "#f39c12",
+                        fontSize: "20px",
+                        marginLeft: "5px",
+                      }}
+                      key={index}
+                    >
+                      &#9733;
+                    </span>
+                  ) : (
+                    <span
+                      style={{
+                        color: "#f39c12",
+                        fontSize: "20px",
+                        marginLeft: "5px",
+                      }}
+                      key={index}
+                    >
+                      &#9734;
+                    </span>
+                  )
+                )}
               </div>
-              <hr />
-            </>
-          ))}
+              <br />
+              <p className={`${styles.h_p} ${styles.five}`}>
+                {comment.review_content}
+              </p>
+              <div className="flex justify-around">
+                <span>date {new Date(comment.review_date).toDateString()}</span>
+                <span>
+                  full name {comment.first_name + " " + comment.last_name}
+                </span>
+              </div>
+            </div>
+            <hr />
+          </>
+        ))}
       </div>
+      
     </>
   );
 }
 
 export default BookPage;
-
-{/* {user?.userId==comment?.user_id&&<button className="cursor-pointer text-red-500"  
-onClick={()=>{deleteComment(comment.comment_id)}}>delete comment</button>} */}
-{
-  /* <div className={`${styles.h_dive} ${styles.comment}`} >
-<h3 className={`${styles.h_h3}`}>
-    <img className={`${styles.h_img} ${styles.avatar}`} src="./ahbook.jpg" alt="Avatar"  /> إبراهيم أحمد
-</h3>
-<div className={`${styles.h_dive} ${styles.stars}`} >
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9734;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9734;</span>
-</div>
-<p className={`${styles.h_p} ${styles.five}`} >علاج مريح جدا</p>
-<button className={`${styles.h_button} ${styles.like_btn}`} >
-    <span className={`${styles.h_span} ${styles.like_icon}`} >&#128077;</span>
-</button>
-<button className={`${styles.h_button} ${styles.unlike_btn}`} >
-    <span className={`${styles.h_span} ${styles.unlike_icon} `} >&#128078;</span>
-</button>
-      
-      <button className={`${styles.h_button} ${styles.reply_btn}`} >Reply</button>
-</div>
-<hr />
-
-
-<div className={`${styles.h_dive} ${styles.comment}`} >
-<h3 className={`${styles.h_h3}`}>
-    <img className={`${styles.h_img} ${styles.avatar}`} src="IMG-20250216-WA0011(1).jpg" alt="Avatar"  /> أحمد محمد
-</h3>
-<div className={`${styles.h_dive} ${styles.stars}`} >
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-</div>
-<p className={`${styles.h_p} ${styles.five}`} >علاج مفيد</p>
-<button className={`${styles.h_button} ${styles.like_btn}`} >
-    <span className={`${styles.h_span} ${styles.like_icon}`} >&#128077;</span>
-</button>
-<button className={`${styles.h_button} ${styles.unlike_btn}`} >
-    <span className={`${styles.h_span} ${styles.unlike_icon} `} >&#128078;</span>
-</button>
-      
-      <button className={`${styles.h_button} ${styles.reply_btn}`} >Reply</button>
-</div>
-<hr />
-
-<div className={`${styles.h_dive} ${styles.comment}`} >
-<h3 className={`${styles.h_h3}`}>
-    <img className={`${styles.h_img} ${styles.avatar}`} src="./mabrouk.jpg" alt="Avatar"/> مبروك 
-</h3>
-<div className={`${styles.h_dive} ${styles.stars}`} >
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9733;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9734;</span>
-    <span className={`${styles.h_span} ${styles.star} `}>&#9734;</span>
-</div>
-<p className={`${styles.h_p} ${styles.five}`} >علاج مفيد</p>
-<button className={`${styles.h_button} ${styles.like_btn}`} >
-    <span className={`${styles.h_span} ${styles.like_icon}`} >&#128077;</span>
-</button>
-<button className={`${styles.h_button} ${styles.unlike_btn}`} >
-    <span className={`${styles.h_span} ${styles.unlike_icon} `} >&#128078;</span>
-</button>
-      
-      <button className={`${styles.h_button} ${styles.reply_btn}`} >Reply</button>
-
-
-</div> */
-}

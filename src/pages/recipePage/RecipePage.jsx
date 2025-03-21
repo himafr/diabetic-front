@@ -9,15 +9,16 @@ import StarRating from "../../components/starRating/StarRating";
 import { useAuth } from "../../context/AuthContext";
 
 function RecipePage() {
-
   const [recipe, setRecipe] = useState([]);
-  const [rating, setRating] = useState([{review_rating:0,review_content:""}]);
+  const [rating, setRating] = useState([
+    { review_rating: 0, review_content: "" },
+  ]);
   const { id } = useParams();
   const { loadRecipesById } = useRecipe();
   const [loading, setLoading] = useState(true);
-  const {addReview,myReview,onCommentChange,onRateChange}=useReview()
+  const { addReview, myReview, onCommentChange, onRateChange } = useReview();
 
-  const {user}=useAuth()
+  const { user } = useAuth();
 
   useEffect(() => {
     setLoading(true);
@@ -26,17 +27,21 @@ function RecipePage() {
         console.log(data);
         setRecipe(data.recipe);
         if (data.review.length != 0) setRating(data.review);
-console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
-console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
+        console.log(
+          rating.filter((rating) => rating.user_id == user.userId).length
+        );
+        console.log(
+          rating.filter((rating) => rating.user_id == user.userId).length
+        );
       })
       .catch((err) => {
         console.log(err.message);
       })
       .finally(setLoading(false));
   }, [id]);
-  async  function rateMe(){
-    await addReview("recipes",recipe.recipe_id)
-      }
+  async function rateMe() {
+    await addReview("recipes", recipe.recipe_id);
+  }
   return loading ? (
     <div>loading</div>
   ) : (
@@ -72,7 +77,7 @@ console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
                 style={{ fontSize: "24px" }}
                 className={`${styles.h_p} `}
               >
-                {val}{" "}
+                {val}
               </p>
               <br />
             </>
@@ -89,67 +94,73 @@ console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
                 style={{ fontSize: "24px" }}
                 className={`${styles.h_p} `}
               >
-                {val}{" "}
+                {val}
               </p>
               <br />
             </>
           ))}
           <br />
-          {/* <a target="_blank" href={`${baseUrl+"get/"+recipe.recipe_url}`} >تحميل الكتاب</a> */}
+
           <h2 className={`${styles.h_h2}`}>التقييم</h2>
           <span className={`${styles.h_span}`}>
-            {rating.length==1?rating[0].review_rating: rating?.reduce(
-              (total, num) => total.review_rating + num.review_rating
-            ) / rating?.length || 0}
+            {rating.length == 1
+              ? rating[0].review_rating
+              : rating?.reduce(
+                  (total, num) => total.review_rating + num.review_rating
+                ) / rating?.length || 0}
             /10
           </span>
           <br />
         </div>
-<div 
-        style={{width:"50vw"}}
-        >
-        <img
-                style={{width:"100%"}}
-
-          className={`${styles.h_img}`}
-          dir="ltr"
-          src={baseUrl + "get/" + recipe?.recipe_photo}
-          alt="صورة الوصفه"
-        />
-         <br />
-             
-            </div>
-            </div>
+        <div style={{ width: "50vw" }}>
+          <img
+            style={{ width: "100%" }}
+            className={`${styles.h_img}`}
+            dir="ltr"
+            src={baseUrl + "get/" + recipe?.recipe_photo}
+            alt="صورة الوصفه"
+          />
+          <br />
+        </div>
+      </div>
 
       <div className={`${styles.h_dive}`}>
-        <h2 className={`${styles.h_h2}`}>التقيمات</h2>
-        {rating.filter((rating)=>rating.user_id==user.userId ).length !=1?<div className="mx-10 ">
-                    <hr />
-                    <StarRating  maxRating={5} onSetRating={onRateChange} size="28px"  />
-                    <br />
-                   
-                    <br />
-                    <textarea
-          style={{ width: "100%", backgroundColor: "white" }}
-          dir="rtl"
-          className={styles.h_textarea}
-          placeholder="أضف تقيمك"
-        onChange={(e)=>onCommentChange(e.target.value)}></textarea>
-        <br style={{ height: "1px" }} />
-        {myReview.review_rating?
-          <button onClick={rateMe} className={`${styles.h_button} ${styles.four}`}>
-          أضف تقييم
-        </button>:null}
-       
-                    
-                    </div>
-                    :null}
+      {/* بشوف اذا اضاف المستخدم تعليق من قبل ام لا  */}
+      {/* لو لا هنعرض الفورم الخاصه ب الاضافه  */}
+        {rating.filter((rating) => rating.user_id == user.userId).length !=
+        1 ? (
+          
+          <div className="mx-10 ">
+            <h2 className={`${styles.h_h2}`}>التقيمات</h2>
+            <hr />
+            <StarRating maxRating={5} onSetRating={onRateChange} size="28px" />
+            <br />
 
+            <br />
+            <textarea
+              style={{ width: "100%", backgroundColor: "white" }}
+              dir="rtl"
+              className={styles.h_textarea}
+              placeholder="أضف تقيمك"
+              onChange={(e) => onCommentChange(e.target.value)}
+            ></textarea>
+            <br style={{ height: "1px" }} />
+            {myReview.review_rating ? (
+              <button
+                onClick={rateMe}
+                className={`${styles.h_button} ${styles.four}`}
+              >
+                أضف تقييم
+              </button>
+            ) : null}
+          </div>
+        ) : null}
       </div>
       <br />
       <br />
       <br />
       <br />
+      {/* مكان عرض جميع التعليقات  */}
       <div className={`${styles.h_dive}`}>
         <h2 className={`${styles.h_h2}`}>التعليقات</h2>
         {rating?.map((comment) => (
@@ -179,13 +190,40 @@ console.log(rating.filter((rating)=>rating.user_id==user.userId ).length)
                   </Badge>
                 </div>
               </h3>
+
+              <div className="float-end">
+                {Array.from({ length: 5 }, (_, index) =>
+                  parseInt(comment.review_rating) > index ? (
+                    <span
+                      style={{
+                        color: "#f39c12",
+                        fontSize: "20px",
+                        marginLeft: "5px",
+                      }}
+                      key={index}
+                    >
+                      &#9733;
+                    </span>
+                  ) : (
+                    <span
+                      style={{
+                        color: "#f39c12",
+                        fontSize: "20px",
+                        marginLeft: "5px",
+                      }}
+                      key={index}
+                    >
+                      &#9734;
+                    </span>
+                  )
+                )}
+              </div>
+              <br />
               <p className={`${styles.h_p} ${styles.five}`}>
                 {comment.review_content}
               </p>
               <div className="flex justify-around">
-                <span>
-                  date {new Date(comment.comment_date).toDateString()}
-                </span>
+                <span>date {new Date(comment.review_date).toDateString()}</span>
                 <span>
                   full name {comment.first_name + " " + comment.last_name}
                 </span>

@@ -13,15 +13,16 @@ function MedPage() {
   const { user } = useAuth();
   console.log(user);
   const [med, setMed] = useState([]);
-  const [rating, setRating] = useState([{review_rating:0,review_content:""}]);
+  const [rating, setRating] = useState([
+    { review_rating: 0, review_content: "" },
+  ]);
   const [cart, setCart] = useState({});
   const [error, setError] = useState("");
   const { id } = useParams();
   const { addToCart } = useCart();
   const { loadMedById } = useMeds();
   const [loading, setLoading] = useState(true);
-  const {addReview,myReview,onCommentChange,onRateChange}=useReview()
-
+  const { addReview, myReview, onCommentChange, onRateChange } = useReview();
 
   useEffect(() => {
     setLoading(true);
@@ -94,35 +95,37 @@ function MedPage() {
             alt="صورة العلاج"
           />
           <br />
-       
         </div>
       </div>
 
       <div className={`${styles.h_dive}`}>
         <h2 className={`${styles.h_h2}`}>التقيمات</h2>
-        {rating.filter((rating)=>rating.user_id==user.userId ).length !=1?<div className="mx-10 ">
-                    <hr />
-                    <StarRating  maxRating={5} onSetRating={onRateChange} size="28px"  />
-                    <br />
-                   
-                    <br />
-                    <textarea
-          style={{ width: "100%", backgroundColor: "white" }}
-          dir="rtl"
-          className={styles.h_textarea}
-          placeholder="أضف تقيمك"
-        onChange={(e)=>onCommentChange(e.target.value)}></textarea>
-        <br style={{ height: "1px" }} />
-        {myReview.review_rating?
-          <button onClick={rateMe} className={`${styles.h_button} ${styles.four}`}>
-          أضف تقييم
-        </button>:null}
-       
-                    
-                    </div>
-                    :null}
+        {rating.filter((rating) => rating.user_id == user.userId).length !=
+        1 ? (
+          <div className="mx-10 ">
+            <hr />
+            <StarRating maxRating={5} onSetRating={onRateChange} size="28px" />
+            <br />
 
-
+            <br />
+            <textarea
+              style={{ width: "100%", backgroundColor: "white" }}
+              dir="rtl"
+              className={styles.h_textarea}
+              placeholder="أضف تقيمك"
+              onChange={(e) => onCommentChange(e.target.value)}
+            ></textarea>
+            <br style={{ height: "1px" }} />
+            {myReview.review_rating ? (
+              <button
+                onClick={rateMe}
+                className={`${styles.h_button} ${styles.four}`}
+              >
+                أضف تقييم
+              </button>
+            ) : null}
+          </div>
+        ) : null}
       </div>
       <br />
       <br />
@@ -130,9 +133,9 @@ function MedPage() {
       <br />
       <div className={`${styles.h_dive}`}>
         <h2 className={`${styles.h_h2}`}>التعليقات</h2>
-        {rating?.map((comment) => (
-          < >
-            <div  className={`${styles.h_dive} ${styles.comment}`}>
+        {rating?.map((comment, index) => (
+          <>
+            <div key={index} className={`${styles.h_dive} ${styles.comment}`}>
               <h3 className={`${styles.h_h3}`}>
                 <img
                   className={`${styles.h_img} ${styles.avatar}`}
@@ -158,9 +161,7 @@ function MedPage() {
                 {comment.review_content}
               </p>
               <div className="flex justify-around">
-                <span>
-                  date {new Date(comment.comment_date).toDateString()}
-                </span>
+                <span>date {new Date(comment.review_date).toDateString()}</span>
                 <span>
                   full name {comment.first_name + " " + comment.last_name}
                 </span>
@@ -175,8 +176,3 @@ function MedPage() {
 }
 
 export default MedPage;
-
-{
-  /* {user?.userId==comment?.user_id&&<button className="cursor-pointer text-red-500"  
-                    onClick={()=>{deleteComment(comment.comment_id)}}>delete comment</button>} */
-}
