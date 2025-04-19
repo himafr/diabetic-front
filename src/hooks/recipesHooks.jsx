@@ -5,13 +5,6 @@ import baseUrl from "../const/const";
 export default function useRecipe() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  // const [recipeData, setRecipeData] = useState({
-  //   recipe_title: "",
-  //   recipe_summary: "",
-  //   recipe_id: "",
-  //   recipe_photo: null,
-  // });
-
 
   async function loadRecipes({page,limit}){
     setIsLoading(true);

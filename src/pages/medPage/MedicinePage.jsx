@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import PlusButton from "../components/PlusButton";
+import PlusButton from "../../components/PlusButton";
 import { Link } from "react-router-dom";
-import useMeds from "../hooks/medsHooks";
-import MedCard from "../components/MedCard";
-import { useAuth } from "../context/AuthContext";
-import MedSkeleton from "../state/loading_state/MedSkeleton";
+import useMeds from "../../hooks/medsHooks";
+import MedCard from "../../components/MedCard";
+import { useAuth } from "../../context/AuthContext";
+import MedSkeleton from "../../state/loading_state/MedSkeleton";
 import { XMarkIcon } from "@heroicons/react/16/solid";
-import Cart from "../components/Cart";
-import baseUrl from "../const/const";
-import useCart from "../hooks/cartHooks";
+import Cart from "../../components/Cart";
+import baseUrl from "../../const/const";
+import useCart from "../../hooks/cartHooks";
 
 function MedicinePage() {
   const { user } = useAuth();

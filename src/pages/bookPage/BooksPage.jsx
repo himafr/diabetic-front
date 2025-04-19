@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import BookCard from "../components/BookCard";
-import BooksSkeleton from "../state/loading_state/booksSkeleton";
+import BookCard from "../../components/BookCard";
+import BooksSkeleton from "../../state/loading_state/booksSkeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
-import useBooks from "../hooks/booksHooks";
-import baseUrl from "../const/const";
+import useBooks from "../../hooks/booksHooks";
+import baseUrl from "../../const/const";
 
 function BooksPage() {
   const [books, setBooks] = useState([]);

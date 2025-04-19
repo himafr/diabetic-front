@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import BarChart from "../components/BarChart";
-import PieChart from "../components/PieChart";
-import UserTable from "../components/UserTable";
-import baseUrl from "../const/const";
+import  { useEffect, useState } from "react";
+import BarChart from "../../components/BarChart";
+import UserTable from "../../components/UserTable";
+import baseUrl from "../../const/const";
 import axios from "axios";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 function PatientDashboard() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./welcomePage.module.css";
-import { UserIcon } from "@heroicons/react/16/solid";
 
 function WelcomePage() {
   const navigate = useNavigate();

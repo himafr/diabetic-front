@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import RecipesSkeleton from "../state/loading_state/recipesSkeleton";
+import RecipesSkeleton from "../../state/loading_state/recipesSkeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
-import useRecipe from "../hooks/recipesHooks";
-import baseUrl from "../const/const";
-import RecipeCard from "../components/RecipeCard";
+import useRecipe from "../../hooks/recipesHooks";
+import baseUrl from "../../const/const";
+import RecipeCard from "../../components/RecipeCard";
 
 function RecipesPage() {
   const [recipes, setRecipes] = useState([]);
@@ -13,6 +13,8 @@ function RecipesPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+
+  
   const loadMoreRecipes = async () => {
     try {
       const [newRecipes, totalRecipesCount] = await loadRecipes({

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import InputFieldHandle from "../components/inputField/InputField.handle";
-import useMeds from "../hooks/medsHooks";
-import MedCard from "../components/MedCard";
-import WhiteButton from "../components/WhiteButton";
+import { useAuth } from "../../context/AuthContext";
+import InputFieldHandle from "../../components/inputField/InputField.handle";
+import useMeds from "../../hooks/medsHooks";
+import MedCard from "../../components/MedCard";
+import WhiteButton from "../../components/WhiteButton";
 
 function MedAdd() {
   const { user } = useAuth();

@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
-import InputFieldHandle from "../components/inputField/InputField.handle";
-import useMeds from "../hooks/medsHooks";
-import { useAuth } from "../context/AuthContext";
-import MedCard from "../components/MedCard";
+import InputFieldHandle from "../../components/inputField/InputField.handle";
+import useMeds from "../../hooks/medsHooks";
+import { useAuth } from "../../context/AuthContext";
+import MedCard from "../../components/MedCard";
 import { useEffect, useState } from "react";
-import baseUrl from "../const/const";
-import WhiteButtonDelete from "../components/WhiteButtonDelete";
-import WhiteButtonUpdate from "../components/WhiteButtonUpdate";
+import baseUrl from "../../const/const";
+import WhiteButtonDelete from "../../components/WhiteButtonDelete";
+import WhiteButtonUpdate from "../../components/WhiteButtonUpdate";
 
 function MedEdit() {
   const { id } = useParams();

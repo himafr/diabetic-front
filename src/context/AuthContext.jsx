@@ -8,6 +8,7 @@ const initialState = {
   isAuthenticated: false,
   isLoading: false,
 };
+
 function reducer(state, action) {
   switch (action.type) {
     case "register":
@@ -92,6 +93,7 @@ async function login(username, password) {
         throw e;
       }
   }
+  
   function register(userData) {
     dispatch({ type: "loading" });
     async function fetchRegister() {

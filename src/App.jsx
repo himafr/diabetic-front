@@ -1,21 +1,21 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import AboutPage from "./pages/AboutPage";
-import HomePage from "./pages/HomePage";
-import MedicinePage from "./pages/MedicinePage";
+import HomePage from "./pages/dashboard/HomePage";
+import MedicinePage from "./pages/medPage/MedicinePage";
 import NotFound from "./pages/NotFound";
-import LoginPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/authPage/LoginPage";
+import SignUpPage from "./pages/authPage/SignUpPage";
 import WelcomePage from "./pages/welcomePage/WelcomePage";
 import AppLayout from "./pages/AppLayout";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectRoute from "./pages/ProtectRoute";
-import MedAdd from "./pages/MedAdd";
+import MedAdd from "./pages/medPage/MedAdd";
 import MedPage from "./pages/medPage/MedPage";
-import MedEdit from "./pages/MedEdit";
-import ProfilePage from "./pages/ProfilePage";
-import RecipesPage from "./pages/RecipesPage";
-import BooksPage from "./pages/BooksPage";
+import MedEdit from "./pages/medPage/MedEdit";
+import ProfilePage from "./pages/profilePage/ProfilePage";
+import RecipesPage from "./pages/recipePage/RecipesPage";
+import BooksPage from "./pages/bookPage/BooksPage";
 import BookPage from "./pages/bookPage/BookPage";
 import RecipePage from "./pages/recipePage/RecipePage";
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import PieChart from "../components/PieChart"
-import { useAuth } from "../context/AuthContext";
+import PieChart from "../../components/PieChart"
+import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
-import baseUrl from "../const/const";
+import baseUrl from "../../const/const";
 
 function PharmDashboard() {
     const {user}=useAuth()

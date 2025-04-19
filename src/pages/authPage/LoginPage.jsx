@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import InputField from "../components/inputField/InputField";
+import { useAuth } from "../../context/AuthContext";
+import InputField from "../../components/inputField/InputField";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import Loader from "../components/Loader";
+import Loader from "../../components/Loader";
 import { EyeDropperIcon, EyeIcon } from "@heroicons/react/16/solid";
 
 function LoginPage() {
@@ -37,6 +37,7 @@ function LoginPage() {
       }
     }
     ,[isAuthenticated,logged,navigate])
+    
  async function handleLogin(e) {
     e.preventDefault();
     setLoading(true);

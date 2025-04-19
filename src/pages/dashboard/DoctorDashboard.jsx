@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
-import baseUrl from "../const/const";
-import { useAuth } from "../context/AuthContext";
+import baseUrl from "../../const/const";
+import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
-import DoctorTable from "../components/DoctorTable";
-import BarChart from "../components/BarChart";
+import DoctorTable from "../../components/DoctorTable";
+import BarChart from "../../components/BarChart";
 
 function DoctorDashboard() {
     const [isLoading, setIsLoading] = useState(true);

@@ -1,15 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import InputField from "../components/inputField/InputField.handle";
+import InputField from "../../components/inputField/InputField.handle";
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { EyeIcon } from "@heroicons/react/16/solid";
 
 function SignUpPage() {
   const navigate = useNavigate();
-const [showPassword,setShowPassword] = useState(false)
+  const [showPassword,setShowPassword] = useState(false)
   const { register, logged, isAuthenticated, isLoading } = useAuth();
   const [loading, setLoading] = useState(isLoading);
-
   const [isValid,setIsValid] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
@@ -20,10 +19,14 @@ const [showPassword,setShowPassword] = useState(false)
     number: "",
     email: "",
   });
+
   const handleChange = (e) => {
+
     if(e.target.name==="password")setIsValid( validate.password(e.target.value));
+
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
   useEffect(
     function () {
       if (!isAuthenticated) {
@@ -46,6 +49,8 @@ const [showPassword,setShowPassword] = useState(false)
     },
     [isAuthenticated, logged, navigate]
   );
+
+  
   const validate = {
     /**
      * @description
@@ -64,6 +69,7 @@ const [showPassword,setShowPassword] = useState(false)
       return str.length >= 5 && regex.test(str);
     },
   };
+
   function handleSignup(e) {
     e.preventDefault();
     if(!isValid)return;
@@ -90,6 +96,7 @@ const [showPassword,setShowPassword] = useState(false)
       register(dataToBeSent);
     }
   }
+
   return (
     <div style={{ backgroundColor: "#e2ddd9", height: "100dvh" ,direction:"ltr"}}>
       <form onSubmit={handleSignup}>
