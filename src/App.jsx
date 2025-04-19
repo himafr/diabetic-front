@@ -24,8 +24,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<WelcomePage />} />
-          <Route path="about" element={<AboutPage />} />
+          <Route path="/" element={<RedirectToWelcomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignUpPage />} />
           <Route
@@ -57,5 +56,7 @@ function App() {
     </AuthProvider>
   );
 }
-
+function RedirectToWelcomePage(){
+  window.location.href="/welcome/index.html";
+}
 export default App;
