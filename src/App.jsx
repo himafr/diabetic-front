@@ -6,7 +6,6 @@ import MedicinePage from "./pages/medPage/MedicinePage";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/authPage/LoginPage";
 import SignUpPage from "./pages/authPage/SignUpPage";
-import WelcomePage from "./pages/welcomePage/WelcomePage";
 import AppLayout from "./pages/AppLayout";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectRoute from "./pages/ProtectRoute";
