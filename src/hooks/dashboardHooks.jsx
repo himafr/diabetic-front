@@ -63,13 +63,14 @@ export default function useDashboard() {
     });
     const {data}=res.data;
     if(res.data.status==='success'){
-        setBgm(data.bgm);
-        setBgm2(data.bgm2.map(e=>e.bgm_num));
-        setBgm3(data.bgm3.map(e=>e.bgm_num));
+      const b=data.bgm
+      const b2=data.bgm2.map(e=>e.bgm_num)
+      const b3=data.bgm3.map(e=>e.bgm_num)
+        setBgm(b);
+        setBgm2(b2);
+        setBgm3(b3);
     }
-    setInterval(()=>{
       setIsLoading(false);
-    },1000);
     }
     
   async  function loadPharmInfo(){
@@ -104,6 +105,7 @@ export default function useDashboard() {
     patientId,
     setPatientId,
     loadPatientInfo,
-    loadPharmInfo
+    loadPharmInfo,
+    setIsLoading
   };
 }

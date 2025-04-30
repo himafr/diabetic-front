@@ -4,7 +4,7 @@ import InputField from "../../components/inputField/InputField";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Loader from "../../components/Loader";
-import { EyeDropperIcon, EyeIcon } from "@heroicons/react/16/solid";
+import {  EyeIcon } from "@heroicons/react/16/solid";
 
 function LoginPage() {
  

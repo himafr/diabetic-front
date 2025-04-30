@@ -15,7 +15,6 @@ function ProfilePage() {
   const [showPopover, setShowPopover] = useState(false);
   const [showPopoverPhoto, setShowPopoverPhoto] = useState(false);
   const [showPopoverCover, setShowPopoverCover] = useState(false);
-
   const { changePhoto, getUserById, handleFilesChange } = useUser();
 
   console.log(user);

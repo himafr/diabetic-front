@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState,useCallback } from "react";
 import BarChart from "../../components/BarChart";
 import UserTable from "../../components/UserTable";
@@ -46,7 +45,7 @@ function HomePage() {
   const setPatientIdValue = useCallback(async (value) => {
     await loadPatientData(value);
     setPatientId(value);
-  }, []);
+  }, [loadPatientData,setPatientId]);
 
   useEffect(() => {
     if (user.role == "patient") loadPatientInfo();
