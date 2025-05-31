@@ -128,6 +128,28 @@ async function login(username, password) {
     dispatch({ type: "logout" });
   }
 
+ async function addMyBgm(value) {
+      try {
+        const res = await fetch(baseUrl + "api/v1/users/bgm", {
+          method: "POST",
+          body: JSON.stringify({"bgm_num":value}),
+          headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.jwt_token}`,
+           },
+        });
+        console.log(value)
+        const data = await res.json();
+        console.log(data)
+        if (data.status == "success") {
+         alert("success")
+        } else {
+           alert("invalid credentials");
+        }
+      } catch {
+        alert("something went wrong while loading data");
+      }
+    }
+   
   return (
     <AuthContext.Provider
       value={{
@@ -140,6 +162,7 @@ async function login(username, password) {
         logged,
         user,
         register,
+        addMyBgm,
       }}
     >
       {/* auth state */}

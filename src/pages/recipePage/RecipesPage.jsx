@@ -28,17 +28,15 @@ function RecipesPage() {
       e.message = "something went wrong please try again latter";
       console.log(e);
       alert(e.message);
-      setError(e);
-    }
+      setError(e);  }
   };
-
+  
   useEffect(() => {
     async function getInitialRecipes() {
       setLoading(true);
       try {
         const [initialRecipes, totalRecipesCount] = await loadRecipes({
-          page: 0,
-          limit: 6,
+          page: 0,  limit: 6,
         });
         setRecipes(initialRecipes);
         setTotalRecipes(totalRecipesCount);
@@ -47,10 +45,8 @@ function RecipesPage() {
         setLoading(false);
         e.message = "No Medicine Found";
         console.log(e);
-        alert(e.message);
-        setError(e);
-      }
-    }
+        alert(e.message);  setError(e);
+      } }
     getInitialRecipes();
   }, []);
 

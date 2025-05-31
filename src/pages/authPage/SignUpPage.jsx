@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
 import InputField from "../../components/inputField/InputField.handle";
 import { useEffect, useState } from "react";
@@ -11,22 +13,15 @@ function SignUpPage() {
   const [loading, setLoading] = useState(isLoading);
   const [isValid,setIsValid] = useState(false);
   const [userData, setUserData] = useState({
-    username: "",
-    password: "",
+    username: "",  password: "",
     first_name: "",
     last_name: "",
     date_of_birth: "",
-    number: "",
-    email: "",
+    number: "", email: "",
   });
-
   const handleChange = (e) => {
-
     if(e.target.name==="password")setIsValid( validate.password(e.target.value));
-
-    setUserData({ ...userData, [e.target.name]: e.target.value });
-  };
-
+    setUserData({ ...userData, [e.target.name]: e.target.value });};
   useEffect(
     function () {
       if (!isAuthenticated) {
@@ -37,12 +32,9 @@ function SignUpPage() {
             console.log(user);
             if (user) {
               logged(user);
-              navigate("/app", { replace: true });
-            }
+              navigate("/app", { replace: true });  }
           } catch (e) {
-            console.log(e);
-          }
-        }
+            console.log(e);  } }
       } else {
         navigate("/app", { replace: true });
       }

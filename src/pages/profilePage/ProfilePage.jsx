@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/16/solid";
 import CircleAvatar from "../../components/CircleAvatar";
 import Badge from "../../components/Badge";
@@ -17,8 +19,6 @@ function ProfilePage() {
   const [showPopoverCover, setShowPopoverCover] = useState(false);
   const { changePhoto, getUserById, handleFilesChange } = useUser();
 
-  console.log(user);
-
   useEffect(() => {
     async function loadUser() {
       setIsLoading(true);
@@ -33,7 +33,6 @@ function ProfilePage() {
     }
     loadUser();
   }, []);
-
   if (isLoading) return <div>Loading...</div>;
   return (
     <div className="max-w-screen-xl mx-auto ">

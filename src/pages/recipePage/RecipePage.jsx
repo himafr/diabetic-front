@@ -17,7 +17,6 @@ function RecipePage() {
   const { loadRecipesById } = useRecipe();
   const [loading, setLoading] = useState(true);
   const { addReview, myReview, onCommentChange, onRateChange } = useReview();
-
   const { user } = useAuth();
 
   useEffect(() => {
@@ -27,9 +26,6 @@ function RecipePage() {
         console.log(data);
         setRecipe(data.recipe);
         if (data.review.length != 0) setRating(data.review);
-        console.log(
-          rating.filter((rating) => rating.user_id == user.userId).length
-        );
         console.log(
           rating.filter((rating) => rating.user_id == user.userId).length
         );

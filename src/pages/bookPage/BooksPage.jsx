@@ -24,15 +24,11 @@ function BooksPage() {
       setError(e);
     }
   };
-
   useEffect(() => {
     async function getInitialBooks() {
       setLoading(true);
       try {
-        const [initialBooks, totalBooksCount] = await loadBooks({
-          page: 0,
-          limit: 6,
-        });
+        const [initialBooks, totalBooksCount] = await loadBooks({  page: 0,  limit: 6, });
         setBooks(initialBooks);
         setTotalBooks(totalBooksCount);
         setLoading(false);
@@ -40,8 +36,7 @@ function BooksPage() {
         setLoading(false);
         e.message = "No Medicine Found";
         setError(e);
-      }
-    }
+      } }
     getInitialBooks();
   }, []);
 

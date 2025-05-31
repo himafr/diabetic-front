@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import useMeds from "../../hooks/medsHooks";
 import styles from "./MedPage.module.css";

@@ -5,26 +5,16 @@ import useDashboard from "../../hooks/dashboardHooks";
 import DoctorTable from "../../components/DoctorTable";
 import PieChart from "../../components/PieChart"
 import { useAuth } from "../../context/AuthContext";
+import InputFieldHandle from "../../components/inputField/InputField.handle";
 
 // import styles from './HomePage.module.css'
 function HomePage() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [addBgm,setAddBgm]=useState(0);
+    const handleChange = (e) => {
+    setAddBgm(e.target.value);
+  };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    // Add a listener for window resize
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup the listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const { user } = useAuth();
+  const { user,addMyBgm } = useAuth();
   const {
     bgm2,
     bgm3,
@@ -52,32 +42,37 @@ function HomePage() {
     if (user.role == "doctor") loadUserData();
     if (user.role == "pharmacy") loadPharmInfo();
   }, []); // Runs only once when the component mounts
-
   if (isLoading) return <div>Loading...</div>;
-
   if (user.role == "patient")
     return (
-      <div>
-        <div className={windowWidth > 700 ? "grid grid-cols-2" : ""}>
+  <div>
+       <div className="flex">
+                <InputFieldHandle
+                          type={"number"}
+                          placeholder="medicine price"
+                          name="med_price"
+                          required={true}
+                          handleValue={handleChange}
+                          width={"60%"}
+                          value={addBgm}
+                        />
+                        
+      <button className="inline ml-11" onClick={()=>addMyBgm(addBgm)}>  add your result </button>
+          </div>
+        <div >
           <BarChart
             seriesName={["قياسات الشهر الحالي", "قياسات الشهر الماضي"]}
             seriesValue={[bgm2, bgm3]}
           />
-          <div> {windowWidth}</div>
+         
         </div>
         <UserTable
           bgm={bgm}
           header={[
-            "صورة",
-            "اسم المستخدم ",
-            "قياس السكر",
-            "تاريخ القياس",
-            "الحاله",
-          ]}
-        />
+            "صورة",  "اسم المستخدم ",  "قياس السكر",  "تاريخ القياس",  "الحاله",
+          ]}   />
       </div>
     );
-
   if (user.role == "doctor")
     return (
       <div className="flex flex-wrap">
@@ -87,11 +82,7 @@ function HomePage() {
             <DoctorTable
               setPatientId={setPatientIdValue}
               header={[
-                "صورة",
-                "اسم المستخدم",
-                "الايمال",
-                "تاريخ الانشاء",
-                "الحاله",
+                "صورة",  "اسم المستخدم",  "الايمال",  "تاريخ الانشاء",  "الحاله",
               ]}
               bgm={myPatient}
             />
@@ -100,11 +91,7 @@ function HomePage() {
           <DoctorTable
             setPatientId={setPatientIdValue}
             header={[
-              "صورة",
-              "اسم المستخدم",
-              "الايمال",
-              "تاريخ الانشاء",
-              "الحاله",
+              "صورة",  "اسم المستخدم",  "الايمال",  "تاريخ الانشاء",  "الحاله",
             ]}
             bgm={freePatient}
           />
