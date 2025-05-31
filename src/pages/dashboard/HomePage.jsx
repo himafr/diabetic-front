@@ -49,8 +49,7 @@ function HomePage() {
        <div className="flex">
                 <InputFieldHandle
                           type={"number"}
-                          placeholder="medicine price"
-                          name="med_price"
+                          placeholder="قياس السكر  "
                           required={true}
                           handleValue={handleChange}
                           width={"60%"}
